@@ -1,2 +1,2 @@
-# Coms319_Assiment1
-this is for Assiment 1
+# Coms319_Assinment1
+this is for Assinment 1
