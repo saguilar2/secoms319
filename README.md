@@ -1,2 +1,2 @@
-# Coms319_Assinment1
-this is for Assinment 1
+# Coms319_Assignment1
+this is for Assignment 1
