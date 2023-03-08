@@ -37,11 +37,60 @@
     getData(urls);
   
   </script>
+  
+  <style>
+
+    #title{
+      
+      width: 100%;
+      border: 7px solid gray;
+      padding: 5px;
+      background-color: maroon;
+    }
+
+    #controller{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 20%;
+    }
+
+    #grid{
+      display: grid;
+      width:auto;
+      height: auto;
+      background: black;
+      grid-template-columns: auto auto auto;
+      grid-gap: 5px 5px;
+      text-align: center;
+      border: 5px solid black;
+      height: 100%;
+    }
+
+    #grid> div {
+      background: powderblue;
+      height: 280px;
+    }
+
+
+    footer{
+    
+      background-color: gray;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 5%;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding-top: 5px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <header>
+  <header >
     <div class="collapse bg-dark" id="navbarHeader">
       <div class="container">
         <div class="row">
@@ -81,14 +130,27 @@
       </div>
     </div>
   </header>
-  <section>
-    <h1 style="text-align: center;">Classic Video Games</h1>
-  </section>
-  <h2 style="color: gray; text-align: center;">Need to make this page more visibly pleasing.</h2>
-  <main>
-  </main>
-  </footer>
-<div id="data"> </div>
+
+
+  
+
+  
+  <div id="title">
+    <h1 style="text-align: center; font-size: 400%; color: whitesmoke;">Classic Video Games</h1>
+  </div>
+
+  <div id="controller">
+    <p><img src=".\controller.png" alt="Controller"></p>
+  </div>
+
+  <div id="grid">
+    <div id="left" style="padding-top: 20%;">Playstation 1</div>
+    <div id="center" style="padding-top: 20%;">Xbox</div>
+    <div id="right" style="padding-top: 20%;">Nintento 64</div>
+  </div>
+  
+  <footer>Established 2023</footer>
+
 
 </body>
 
