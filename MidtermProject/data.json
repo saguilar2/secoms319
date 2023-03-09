@@ -36,9 +36,88 @@
             "releaseDate": "1996",
             "image": "./images/tombraider.webp"
         }
-        
+    ],
 
 
+
+    "xbox": [
+        {
+            "title": "Halo: Combat Evolved",
+            "developer": "Bungie",
+            "releaseDate": "2001",
+            "image": "./images/halo.webp"
+        },
+        {
+            "title": "Star Wars: Knights of the Old Republic",
+            "developer": "BioWare",
+            "releaseDate": "2003",
+            "image": "./images/starwars.webp"
+        },
+        {
+            "title": "Grand Theft Auto: San Andreas",
+            "developer": "Rockstar North",
+            "releaseDate": "2004",
+            "image": "./images/gta.webp"
+        },
+        {
+            "title": "Prince of Persia: The Sands of Time",
+            "developer": "Ubisoft Montreal",
+            "releaseDate": "2003",
+            "image": "./images/princeofpersia.webp"
+        },
+        {
+            "title": "Burnout 3: Takedown",
+            "developer": "Criterion Games",
+            "releaseDate": "2004",
+            "image": "./images/burnout.webp"
+        },
+        {
+            "title": "The Elders Scrolls 3: Morrowind",
+            "developer": "Bethesda Game Studios",
+            "releaseDate": "2002",
+            "image": "./images/elderscrolls.webp"
+        }
+    ],
+
+
+
+    "nintendo": [
+        {
+            "title": "The Legend of Zelda: Ocarina of Time",
+            "developer": "Nintendo",
+            "releaseDate": "1998",
+            "image": "./images/zelda.webp"
+        },
+        {
+            "title": "Super Mario 64",
+            "developer": "Nintendo",
+            "releaseDate": "1996",
+            "image": "./images/mario64.webp"
+        },
+        {
+            "title": "Super Smash Bros.",
+            "developer": "HAL Laboratory",
+            "releaseDate": "1999",
+            "image": "./images/smash.webp"
+        },
+        {
+            "title": "Mario Kart 64",
+            "developer": "Nintendo",
+            "releaseDate": "1996",
+            "image": "./images/mariocart.webp"
+        },
+        {
+            "title": "Doom 64",
+            "developer": "Midway",
+            "releaseDate": "1997",
+            "image": "./images/doom.webp"
+        },
+        {
+            "title": "Pilotwings 64",
+            "developer": "Nintendo",
+            "releaseDate": "1996",
+            "image": "./images/pilotwings.webp"
+        }
     ]
 
 
