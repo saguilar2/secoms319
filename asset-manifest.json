@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/secoms319/Assignment2/assignment2/static/css/main.ca5522a6.css",
+    "main.js": "/secoms319/Assignment2/assignment2/static/js/main.da640ef4.js",
+    "index.html": "/secoms319/Assignment2/assignment2/index.html",
+    "main.ca5522a6.css.map": "/secoms319/Assignment2/assignment2/static/css/main.ca5522a6.css.map",
+    "main.da640ef4.js.map": "/secoms319/Assignment2/assignment2/static/js/main.da640ef4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca5522a6.css",
+    "static/js/main.da640ef4.js"
+  ]
+}
