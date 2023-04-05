@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {Products} from "./Products"
 import {Categories} from "./Categories"
 
-
 export const App = () => {
   console.log("Step 1: After reading file :");
   
