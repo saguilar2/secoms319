@@ -1,5 +1,5 @@
 import "./App.css";
-import logo from "./logo.png";
+import logo from "./cart2.png";
 import React, {useState} from "react";
 import {Products} from "./Products"
 import {Categories} from "./Categories"
@@ -53,7 +53,14 @@ export const App = () => {
   function handleClick(tag){
     console.log("Step 4 : in handleClick", tag);
     let filtered = Products.filter(cat => cat.category === tag);
-    setProductsCategory(filtered);
+    if(tag === "All"){
+      console.log("YES");
+      return ProductsCategory;
+    }
+    else{
+      setProductsCategory(filtered);
+    }
+    //setProductsCategory(filtered);
    // ProductsCategory = filtered;
    console.log("Step 5 : ", Products.length, ProductsCategory.length);
   }
@@ -72,11 +79,11 @@ export const App = () => {
     <div className="flex fixed flex-row">
 	    {console.log("Step 2 : Return App :",Products.length,ProductsCategory.length)}
       <div className="h-screen  bg-slate-800 p-3 xl:basis-1/5" style={{ minWidth: '65%' }}>
-        <img className="w-full" src={logo} alt="Sunset in the mountains" />
+        <img className="w-full" src={logo} alt="cart" />
         <div className="px-6 py-4">
-          <h1 className="text-3xl mb-2 font-bold text-white"> Product Catalog App </h1>
+          <h1 className="text-3xl mb-2 font-bold text-white"> Shopping App </h1>
           <p className="text-gray-700 text-white">
-            by - <b style={{ color: 'orange' }}>Design Shubham, Development Abraham</b>
+            by - <b style={{ color: 'orange' }}>Kolby Kucera, Simon Aguilar</b>
           </p>
           <div className="py-10">
             { (Categories) ? <p className='text-white'>Tags : </p> : ''}
