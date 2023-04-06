@@ -53,6 +53,7 @@ export const App = () => {
     console.log("Step 4 : in handleClick", tag);
     let filtered = Products.filter(cat => cat.category === tag);
     if(tag === "All"){
+      setProductsCategory(Products);
       console.log("YES");
       return ProductsCategory;
     }
@@ -65,13 +66,15 @@ export const App = () => {
   }
   
   const handleChange = (e) => {
+
     setQuery(e.target.value);
     console.log("Step 6 : in handleChange, Target Value :",e.target.value,"  Query Value :",query);
     const results = ProductsCategory.filter(eachProduct => {
-    if (e.target.value === "") return ProductsCategory;
+    if (e.target.value === "") return Products;
       return eachProduct.title.toLowerCase().includes(e.target.value.toLowerCase())
     });
     setProductsCategory(results);
+  
   }
   
   return (
