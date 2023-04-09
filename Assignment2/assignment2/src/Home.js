@@ -3,13 +3,14 @@ import logo from "./cart2.png";
 import React, { useState } from "react";
 import { Products } from "./Products";
 import { Categories } from "./Categories";
+//import "bootstrap/dist/css/bootstrap.css";
 
 export function Home() {
   console.log("Step 1: After reading file :");
 
   const [CartListsItems, setCartListsItems] = useState([]);
   const [CartListsQuantety, setCartListsQuantety] = useState([]);
-  const [CartListsinfo, setCartListInfo] = useState([0, 0.0]);
+  const [CartListsinfo, setCartListInfo] = useState([0, 0]);
   const [ProductsCategory, setProductsCategory] = useState(Products);
   const [query, setQuery] = useState("");
 
@@ -40,56 +41,52 @@ export function Home() {
           {/* Loop Products */}
           {ProductsCategory.map((product, index) => (
             <div key={product.id} className="group relative shadow-lg">
-              <div className=" min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-60 lg:aspect-none">
-                <img
-                  alt="Product Image"
-                  src={product.image}
-                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                />
-              </div>
-              <div className="flex justify-between p-3">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href={product.href}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      <span style={{ fontSize: "16px", fontWeight: "600" }}>
-                        {product.title}
-                      </span>
-                    </a>
-                    <p>Tag - {product.category}</p>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Rating: {product.rating.rate}
+              <div>
+                <div className=" min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-60 lg:aspect-none">
+                  <img
+                    alt="Product Image"
+                    src={product.image}
+                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                  />
+                </div>
+                <div className="flex justify-between p-3">
+                  <div>
+                    <h3 className="text-sm text-gray-700">
+                      <a href={product.href}>
+                        <span style={{ fontSize: "16px", fontWeight: "600" }}>
+                          {product.title}
+                        </span>
+                      </a>
+                      <p>Tag - {product.category}</p>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Rating: {product.rating.rate}
+                    </p>
+                  </div>
+                  <p className="text-sm font-medium text-green-600">
+                    ${product.price}
                   </p>
                 </div>
-                <p className="text-sm font-medium text-green-600">
-                  ${product.price}
-                </p>
               </div>
               <div>
                 <button
-                  type="button"
-                  key={product}
-                  onClick={() => AddToCartClick(product)}
                   className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
-                >
-                  Add to cart
-                </button>
-                <button
                   type="button"
-                  value="Hi"
-                  onClick={(e) => {
-                    alert(e.target.value);
+                  onClick={() => {
+                    AddToCartClick(product);
+                  }}
+                >
+                  +
+                </button>
+                {GetQunety(product) + " "}
+                <button
+                  className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
+                  type="button"
+                  onClick={() => {
+                    RemoveToCartClick(product);
                   }}
                 >
                   -
-                </button>{" "}
-                <button
-                  type="button"
-                  variant="light"
-                  onClick={() => console.log("+")}
-                >
-                  +
                 </button>
               </div>
             </div>
@@ -98,6 +95,48 @@ export function Home() {
       </div>
     );
   };
+  function GetQunety(product) {
+    let found = false;
+
+    for (let index = 0; index < CartListsItems.length; index++) {
+      if (CartListsItems[index].id === product.id) {
+        found = true;
+        return CartListsQuantety[index];
+      }
+    }
+
+    if (!found) {
+      return 0;
+    }
+  }
+  function RemoveToCartClick(product) {
+    console.log("Step 8 : Remove to cart");
+    if (CartListsinfo[0] !== 0) {
+      for (let index = 0; index < CartListsItems.length; index++) {
+        if (CartListsItems[index].id === product.id) {
+          if (CartListsQuantety[index] !== 0) {
+            CartListsQuantety[index]--;
+            CartListsinfo[0]--;
+            CartListsinfo[1] -= product.price;
+            if (CartListsinfo[0] === 0) {
+              CartListsinfo[1] = 0;
+            }
+
+            if (CartListsQuantety[index] === 0) {
+              CartListsItems.splice(index, index + 1);
+              CartListsQuantety.splice(index, index + 1);
+            }
+          }
+          setCartListsItems(CartListsItems);
+          setCartListsQuantety(CartListsQuantety);
+          let TempcartInfo = [CartListsinfo[0], CartListsinfo[1]];
+
+          setCartListInfo(TempcartInfo);
+          break;
+        }
+      }
+    }
+  }
 
   function AddToCartClick(product) {
     console.log("Step 7 : add to cart");
