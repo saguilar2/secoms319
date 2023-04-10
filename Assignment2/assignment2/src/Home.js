@@ -106,11 +106,19 @@ export function Home() {
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
           Products In Cart ({ProductsCategory.length})
         </h2>
+        <button
+          key="ToHome"
+          onClick={() => {
+            ToHomeView();
+          }}
+        >
+          Back to Home
+        </button>
         <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
           <div>{render_choises(ProductsCategory)}</div>
           <div>
             Your Name:
-            <input type="search" value="Name" onChange={handleChange} />
+            <input type="search" onChange={handleChange} />
           </div>
         </div>
       </div>
@@ -199,6 +207,9 @@ export function Home() {
   }
   function ToCartView() {
     setPageContral(1);
+  }
+  function ToHomeView() {
+    setPageContral(0);
   }
   const handleChange = (e) => {
     console.log(
