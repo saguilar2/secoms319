@@ -7,7 +7,7 @@ import { Categories } from "./Categories";
 
 export function Home() {
   console.log("Step 1: After reading file :");
-
+  const [PageContral, setPageContral] = useState(0);
   const [CartListsItems, setCartListsItems] = useState([]);
   const [CartListsQuantety, setCartListsQuantety] = useState([]);
   const [CartListsinfo, setCartListInfo] = useState([0, 0]);
@@ -26,6 +26,66 @@ export function Home() {
     );
   };
 
+  const render_choises = (ProductsCategory) => {
+    return (
+      <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
+        {/* Loop Products */}
+        {ProductsCategory.map((product, index) => (
+          <div key={product.id} className="group relative shadow-lg">
+            <div>
+              <div className=" min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-60 lg:aspect-none">
+                <img
+                  alt="Product Image"
+                  src={product.image}
+                  className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                />
+              </div>
+              <div className="flex justify-between p-3">
+                <div>
+                  <h3 className="text-sm text-gray-700">
+                    <a href={product.href}>
+                      <span style={{ fontSize: "16px", fontWeight: "600" }}>
+                        {product.title}
+                      </span>
+                    </a>
+                    <p>Tag - {product.category}</p>
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Rating: {product.rating.rate}
+                  </p>
+                </div>
+                <p className="text-sm font-medium text-green-600">
+                  ${product.price}
+                </p>
+              </div>
+            </div>
+            <div>
+              <button
+                className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
+                type="button"
+                onClick={() => {
+                  AddToCartClick(product);
+                }}
+              >
+                +
+              </button>
+              {GetQunety(product) + " "}
+              <button
+                className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
+                type="button"
+                onClick={() => {
+                  RemoveToCartClick(product);
+                }}
+              >
+                -
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   const render_products = (ProductsCategory) => {
     return (
       <div className="category-section fixed">
@@ -33,68 +93,30 @@ export function Home() {
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
           Products ({ProductsCategory.length})
         </h2>
-
-        <div
-          className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10"
-          style={{ maxHeight: "800px", overflowY: "scroll" }}
-        >
-          {/* Loop Products */}
-          {ProductsCategory.map((product, index) => (
-            <div key={product.id} className="group relative shadow-lg">
-              <div>
-                <div className=" min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-60 lg:aspect-none">
-                  <img
-                    alt="Product Image"
-                    src={product.image}
-                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                  />
-                </div>
-                <div className="flex justify-between p-3">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <a href={product.href}>
-                        <span style={{ fontSize: "16px", fontWeight: "600" }}>
-                          {product.title}
-                        </span>
-                      </a>
-                      <p>Tag - {product.category}</p>
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Rating: {product.rating.rate}
-                    </p>
-                  </div>
-                  <p className="text-sm font-medium text-green-600">
-                    ${product.price}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <button
-                  className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
-                  type="button"
-                  onClick={() => {
-                    AddToCartClick(product);
-                  }}
-                >
-                  +
-                </button>
-                {GetQunety(product) + " "}
-                <button
-                  className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
-                  type="button"
-                  onClick={() => {
-                    RemoveToCartClick(product);
-                  }}
-                >
-                  -
-                </button>
-              </div>
-            </div>
-          ))}
+        <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
+          <div>{render_choises(ProductsCategory)}</div>
         </div>
       </div>
     );
   };
+  const render_checkout = (ProductsCategory) => {
+    return (
+      <div className="category-section fixed">
+        {console.log("Step 3 : in render_products ")}
+        <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
+          Products In Cart ({ProductsCategory.length})
+        </h2>
+        <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
+          <div>{render_choises(ProductsCategory)}</div>
+          <div>
+            Your Name:
+            <input type="search" value="Name" onChange={handleChange} />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   function GetQunety(product) {
     let found = false;
 
@@ -109,8 +131,9 @@ export function Home() {
       return 0;
     }
   }
+
   function RemoveToCartClick(product) {
-    console.log("Step 8 : Remove to cart");
+    console.log("Step 8 : Remove from cart");
     if (CartListsinfo[0] !== 0) {
       for (let index = 0; index < CartListsItems.length; index++) {
         if (CartListsItems[index].id === product.id) {
@@ -123,15 +146,13 @@ export function Home() {
             }
 
             if (CartListsQuantety[index] === 0) {
-              CartListsItems.splice(index, index + 1);
-              CartListsQuantety.splice(index, index + 1);
+              CartListsItems.splice(index, 1);
+              CartListsQuantety.splice(index, 1);
             }
           }
-          setCartListsItems(CartListsItems);
-          setCartListsQuantety(CartListsQuantety);
-          let TempcartInfo = [CartListsinfo[0], CartListsinfo[1]];
-
-          setCartListInfo(TempcartInfo);
+          setCartListsItems([...CartListsItems]);
+          setCartListsQuantety([...CartListsQuantety]);
+          setCartListInfo([...CartListsinfo]);
           break;
         }
       }
@@ -155,15 +176,13 @@ export function Home() {
       setCartListsItems([...CartListsItems, product]);
       setCartListsQuantety([...CartListsQuantety, 1]);
     } else {
-      setCartListsItems(CartListsItems);
-      setCartListsQuantety(CartListsQuantety);
+      setCartListsItems([...CartListsItems]);
+      setCartListsQuantety([...CartListsQuantety]);
     }
 
     CartListsinfo[0]++;
     CartListsinfo[1] += product.price;
-    let TempcartInfo = [CartListsinfo[0], CartListsinfo[1]];
-
-    setCartListInfo(TempcartInfo);
+    setCartListInfo([...CartListsinfo]);
   }
 
   function handleClick(tag) {
@@ -175,11 +194,12 @@ export function Home() {
     } else {
       setProductsCategory(filtered);
     }
-    //setProductsCategory(filtered);
-    // ProductsCategory = filtered;
+
     console.log("Step 5 : ", Products.length, ProductsCategory.length);
   }
-
+  function ToCartView() {
+    setPageContral(1);
+  }
   const handleChange = (e) => {
     console.log(
       "Step 6 : in handleChange, Target Value :",
@@ -201,6 +221,16 @@ export function Home() {
     }
   };
 
+  function SettingForm(PageContral) {
+    if (PageContral === 0) {
+      return render_products(ProductsCategory);
+    } else if (PageContral === 1) {
+      return render_checkout(CartListsItems);
+    } else if (PageContral === 2) {
+      return render_products(ProductsCategory);
+    }
+  }
+
   return (
     <div className="flex fixed flex-row">
       {console.log(
@@ -212,7 +242,14 @@ export function Home() {
         className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
         style={{ minWidth: "65%" }}
       >
-        <img className="w-full" src={logo} alt="cart" />
+        <button
+          key="ToCart"
+          onClick={() => {
+            ToCartView();
+          }}
+        >
+          <img className="w-full" src={logo} alt="cart" />
+        </button>
         <div className="px-6 py-4">
           <h1 className="text-3xl mb-2 font-bold text-white"> Shopping App </h1>
           <p className="text-gray-700 text-white">
@@ -244,7 +281,7 @@ export function Home() {
           Products.length,
           ProductsCategory.length
         )}
-        {render_products(ProductsCategory)}
+        {SettingForm(PageContral)}
       </div>
     </div>
   );
