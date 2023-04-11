@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Products } from "./Products";
 import { Categories } from "./Categories";
 import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export function Home() {
   console.log("Step 1: After reading file :");
@@ -13,9 +14,8 @@ export function Home() {
   const [CartListsinfo, setCartListInfo] = useState([0, 0]);
   const [ProductsCategory, setProductsCategory] = useState(Products);
   const [query, setQuery] = useState("");
-  const [CheckoutForm, setCheckoutForm] = useState(0);
-
-
+  // index 0 = Name, 1 = Email, 2 = card number, 3 = city, 4 = state, 5 = Zip Code
+  const [CheckoutForm, setCheckoutForm] = useState(["Simon", "", "", "", "", 0]);
 
   const render_Cart = (CartListsinfo) => {
     return (
@@ -24,12 +24,12 @@ export function Home() {
           Number of Items in cart: {CartListsinfo[0]}
         </p>
 
-        <p className="text-white">Total in cart: ${CartListsinfo[1].toFixed(2)}</p>
+        <p className="text-white">
+          Total in cart: ${CartListsinfo[1].toFixed(2)}
+        </p>
       </div>
     );
   };
-
-
 
   const render_choises = (ProductsCategory) => {
     return (
@@ -91,8 +91,6 @@ export function Home() {
     );
   };
 
-
-
   const render_products = (ProductsCategory) => {
     return (
       <div className="category-section fixed">
@@ -107,19 +105,21 @@ export function Home() {
     );
   };
 
-
   const render_confirmation = (CheckoutForm) => {
     return (
       <div>
-        <a href="" onclick="location.reload()" class="btn btn-secondary"> <i class="bi-arrow-left-circle"></i>
-            Return</a>
+        <a href="" onclick="location.reload()" class="btn btn-secondary">
+          {" "}
+          <i class="bi-arrow-left-circle"></i>
+          Return
+        </a>
       </div>
-
     );
-  }
-
+  };
 
   const render_checkout = (ProductsCategory) => {
+    console.log(CheckoutForm);
+
     return (
       <div className="category-section fixed">
         {console.log("Step 3 : in render_products ")}
@@ -137,103 +137,157 @@ export function Home() {
         <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
           <div>{render_choises(ProductsCategory)}</div>
           <div>
-          <div class="container">
+            <div class="container">
+              <div class="row">
+                <div class="col-2"></div>
 
-          <div class="row">
-            <div class="col-2"></div>
+                <div class="col-8">
+                  <h1>Checkout</h1>
 
-
-            <div class="col-8">
-
-              <h1>Checkout</h1>
-
-            <div id="liveAlertPlaceholder"></div>
+                  <div id="liveAlertPlaceholder"></div>
                   <form class="row g-3" id="checkout-form">
-
+                    <div class="col-md-6">
+                      <label for="inputName" class="form-label">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputName"
                       
-                      <div class="col-md-6">
-                        <label for="inputName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="inputName"/>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                          Must be like, "John Doe"
-                        </div>
+                        onChange={(event) => {
+                          CheckoutForm[0] = event.target.value;
+                          setCheckoutForm(CheckoutForm);
+                        }}
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Must be like, "John Doe"
                       </div>
+                    </div>
 
-                      
-                      <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4"/>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                          Must be like, "abc@xyz.efg"
-                        </div>
+                    <div class="col-md-6">
+                      <label for="inputEmail4" class="form-label">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="inputEmail4"
+                        value={CheckoutForm[1]}
+                        onChange={(event) => {
+                          CheckoutForm[1] = event.target.value;
+                          setCheckoutForm(CheckoutForm);
+                        }}
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Must be like, "abc@xyz.efg"
                       </div>
+                    </div>
 
-                     
-                      <div class="col-12">
-                        <label for="inputCard" class="form-label">Card</label>
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1"><i class="bi-credit-card-fill"></i></span>
-                          <input type="text" id="inputCard" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX"
-                            aria-label="Username" aria-describedby="basic-addon1"/>
-                          <div class="valid-feedback">
-                            Looks good!
-                          </div>
-                          <div class="invalid-feedback">
-                            Must be like, "7777-7777-7777-7777"
-                          </div>
-                        </div>
-                      </div>
-
-                      
-                      <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity"/>
-                      </div>
-                      <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                          <option selected>Choose...</option>
-                        </select>
-                      </div>
-                      <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip"/>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck"/>
-                          <label class="form-check-label" for="gridCheck">
-                            Check me out
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-success">
-                          {() => {
-                            ToCartView();
+                    <div class="col-12">
+                      <label for="inputCard" class="form-label">
+                        Card
+                      </label>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="bi-credit-card-fill"></i>
+                        </span>
+                        <input
+                          type="text"
+                          id="inputCard"
+                          class="form-control"
+                          placeholder="XXXX-XXXX-XXXX-XXXX"
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"
+                          value={CheckoutForm[2]}
+                          onChange={(event) => {
+                            CheckoutForm[2] = event.target.value;
+                            setCheckoutForm(CheckoutForm);
                           }}
-                          Order
-                        </button>
-                
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">
+                          Must be like, "7777-7777-7777-7777"
+                        </div>
                       </div>
-                      </form>
-                  </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="inputCity" class="form-label">
+                        City
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputCity"
+                        value={CheckoutForm[3]}
+                        onChange={(event) => {
+                          CheckoutForm[3] = event.target.value;
+                          setCheckoutForm(CheckoutForm);
+                        }}
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="inputState" class="form-label">
+                        State
+                      </label>
+                      <select
+                        id="inputState"
+                        class="form-select"
+                        value={CheckoutForm[4]}
+                        onChange={(event) => {
+                          CheckoutForm[4] = event.target.value;
+                          setCheckoutForm(CheckoutForm);
+                        }}
+                      >
+                        <option selected>Choose...</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="inputZip" class="form-label">
+                        Zip
+                      </label>
+                      <input
+                        type="Number"
+                        class="form-control"
+                        id="inputZip"
+                        value={CheckoutForm[5]}
+                        onChange={(event) => {
+                          CheckoutForm[5] = event.target.value;
+                          setCheckoutForm(CheckoutForm);
+                        }}
+                      />
+                    </div>
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck"
+                        />
+                        <label class="form-check-label" for="gridCheck">
+                          Check me out
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-success">
+                        {() => {
+                          ToCartView();
+                        }}
+                        Order
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
+            </div>
+          </div>
 
-              </div>
-
-              <div class="col-2"></div>
-
-
+          <div class="col-2"></div>
         </div>
-
       </div>
     );
   };
@@ -252,8 +306,6 @@ export function Home() {
       return 0;
     }
   }
-
-
 
   function RemoveToCartClick(product) {
     console.log("Step 8 : Remove from cart");
@@ -308,8 +360,6 @@ export function Home() {
     setCartListInfo([...CartListsinfo]);
   }
 
-
-  
   function handleClick(tag) {
     console.log("Step 4 : in handleClick", tag);
     let filtered = Products.filter((cat) => cat.category === tag);
@@ -323,8 +373,6 @@ export function Home() {
     console.log("Step 5 : ", Products.length, ProductsCategory.length);
   }
 
-
-
   function ToCartView() {
     setPageContral(1);
   }
@@ -334,10 +382,6 @@ export function Home() {
   function ToConfimationView() {
     setPageContral(2);
   }
-
-
-
-
 
   const handleChange = (e) => {
     console.log(
@@ -370,7 +414,6 @@ export function Home() {
     }
   }
 
-  
   return (
     <div className="flex fixed flex-row">
       {console.log(
@@ -425,8 +468,4 @@ export function Home() {
       </div>
     </div>
   );
-
-
-  
-  
 }
