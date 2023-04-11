@@ -15,7 +15,14 @@ export function Home() {
   const [ProductsCategory, setProductsCategory] = useState(Products);
   const [query, setQuery] = useState("");
   // index 0 = Name, 1 = Email, 2 = card number, 3 = city, 4 = state, 5 = Zip Code
-  const [CheckoutForm, setCheckoutForm] = useState(["Simon", "", "", "", "", 0]);
+  const [CheckoutForm, setCheckoutForm] = useState([
+    "Simon",
+    "",
+    "",
+    "",
+    "",
+    0,
+  ]);
 
   const render_Cart = (CartListsinfo) => {
     return (
@@ -105,14 +112,12 @@ export function Home() {
     );
   };
 
-  const render_confirmation = (CheckoutForm) => {
+  const render_confirmation = () => {
     return (
-      <div>
-        <a href="" onclick="location.reload()" class="btn btn-secondary">
-          {" "}
-          <i class="bi-arrow-left-circle"></i>
+      <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
+        <button onclick="location.reload()" class="btn btn-secondary">
           Return
-        </a>
+        </button>
       </div>
     );
   };
@@ -154,7 +159,6 @@ export function Home() {
                         type="text"
                         class="form-control"
                         id="inputName"
-                      
                         onChange={(event) => {
                           CheckoutForm[0] = event.target.value;
                           setCheckoutForm(CheckoutForm);
@@ -174,7 +178,6 @@ export function Home() {
                         type="email"
                         class="form-control"
                         id="inputEmail4"
-                        value={CheckoutForm[1]}
                         onChange={(event) => {
                           CheckoutForm[1] = event.target.value;
                           setCheckoutForm(CheckoutForm);
@@ -201,7 +204,6 @@ export function Home() {
                           placeholder="XXXX-XXXX-XXXX-XXXX"
                           aria-label="Username"
                           aria-describedby="basic-addon1"
-                          value={CheckoutForm[2]}
                           onChange={(event) => {
                             CheckoutForm[2] = event.target.value;
                             setCheckoutForm(CheckoutForm);
@@ -222,7 +224,6 @@ export function Home() {
                         type="text"
                         class="form-control"
                         id="inputCity"
-                        value={CheckoutForm[3]}
                         onChange={(event) => {
                           CheckoutForm[3] = event.target.value;
                           setCheckoutForm(CheckoutForm);
@@ -236,13 +237,13 @@ export function Home() {
                       <select
                         id="inputState"
                         class="form-select"
-                        value={CheckoutForm[4]}
                         onChange={(event) => {
                           CheckoutForm[4] = event.target.value;
                           setCheckoutForm(CheckoutForm);
                         }}
                       >
                         <option selected>Choose...</option>
+                        <option value="IA">IA</option>
                       </select>
                     </div>
                     <div class="col-md-2">
@@ -253,7 +254,6 @@ export function Home() {
                         type="Number"
                         class="form-control"
                         id="inputZip"
-                        value={CheckoutForm[5]}
                         onChange={(event) => {
                           CheckoutForm[5] = event.target.value;
                           setCheckoutForm(CheckoutForm);
@@ -273,10 +273,13 @@ export function Home() {
                       </div>
                     </div>
                     <div class="col-12">
-                      <button type="submit" class="btn btn-success">
-                        {() => {
-                          ToCartView();
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        onClick={() => {
+                          ToConfimationView();
                         }}
+                      >
                         Order
                       </button>
                     </div>
@@ -410,7 +413,7 @@ export function Home() {
     } else if (PageContral === 1) {
       return render_checkout(CartListsItems);
     } else if (PageContral === 2) {
-      return render_confirmation(CheckoutForm);
+      return render_confirmation();
     }
   }
 
