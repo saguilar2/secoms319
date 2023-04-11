@@ -15,14 +15,7 @@ export function Home() {
   const [ProductsCategory, setProductsCategory] = useState(Products);
   const [query, setQuery] = useState("");
   // index 0 = Name, 1 = Email, 2 = card number, 3 = city, 4 = state, 5 = Zip Code
-  const [CheckoutForm, setCheckoutForm] = useState([
-    "Simon",
-    "",
-    "",
-    "",
-    "",
-    0,
-  ]);
+  const [CheckoutForm, setCheckoutForm] = useState(["", "", "", "", "", 0]);
 
   const render_Cart = (CartListsinfo) => {
     return (
@@ -45,22 +38,39 @@ export function Home() {
         {ProductsCategory.map((product, index) => (
           <div key={product.id} className="group relative shadow-lg">
             <div class="row border-top border-bottom" key={product.id}>
-                <div class="row main align-items-center">
+              <div class="row main align-items-center">
                 <div class="col-2">
-                <img class="img-fluid" src={product.image} />
+                  <img class="img-fluid" src={product.image} />
                 </div>
                 <div class="col">
-                <div class="row text-muted">{product.title}</div>
-                <div class="row">{product.category}</div>
+                  <div class="row text-muted">{product.title}</div>
+                  <div class="row">{product.category}</div>
                 </div>
                 <div class="col">
-                <button type="button" variant="light" onClick={() => {AddToCartClick(product);}} > + </button>
-                {GetQunety(product) + " "} 
-                <button  type="button" variant="light" onClick={() => {RemoveToCartClick(product);}}> - </button>
+                  <button
+                    type="button"
+                    variant="light"
+                    onClick={() => {
+                      AddToCartClick(product);
+                    }}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                  {GetQunety(product) + " "}
+                  <button
+                    type="button"
+                    variant="light"
+                    onClick={() => {
+                      RemoveToCartClick(product);
+                    }}
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
                 </div>
-                </div>
-           
-          </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -84,29 +94,28 @@ export function Home() {
   const render_confirmation = () => {
     return (
       <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
-          <div  className="group relative shadow-lg">
-            <div class="row border-top border-bottom" >
-                <div class="row main align-items-center">
-              
-                <div class="col">
+        <div className="group relative shadow-lg">
+          <div class="row border-top border-bottom">
+            <div class="row main align-items-center">
+              <div class="col">
                 <div class="row">Name: {CheckoutForm[0]}</div>
                 <div class="row">Email: {CheckoutForm[1]}</div>
                 <div class="row">Card: {CheckoutForm[2]}</div>
                 <div class="row">City: {CheckoutForm[3]}</div>
                 <div class="row">State: {CheckoutForm[4]}</div>
                 <div class="row">Zip: {CheckoutForm[5]}</div>
-                </div>
-                </div>
-                <button
-          key="ToHome"
-          onClick={() => {
-            ToHomeView();
-          }}
-        >
-          Back to Home
-        </button>
+              </div>
+            </div>
+            <button
+              key="ToHome"
+              onClick={() => {
+                ToHomeView();
+              }}
+            >
+              Back to Home
+            </button>
           </div>
-          </div>
+        </div>
       </div>
     );
   };
@@ -148,9 +157,10 @@ export function Home() {
                         type="text"
                         class="form-control"
                         id="inputName"
-                        onChange={(event) => {
+                        value={CheckoutForm[0]}
+                        onInput={(event) => {
                           CheckoutForm[0] = event.target.value;
-                          setCheckoutForm(CheckoutForm);
+                          setCheckoutForm([...CheckoutForm]);
                         }}
                       />
                       <div class="valid-feedback">Looks good!</div>
@@ -167,9 +177,10 @@ export function Home() {
                         type="email"
                         class="form-control"
                         id="inputEmail4"
-                        onChange={(event) => {
+                        value={CheckoutForm[1]}
+                        onInput={(event) => {
                           CheckoutForm[1] = event.target.value;
-                          setCheckoutForm(CheckoutForm);
+                          setCheckoutForm([...CheckoutForm]);
                         }}
                       />
                       <div class="valid-feedback">Looks good!</div>
@@ -193,9 +204,10 @@ export function Home() {
                           placeholder="XXXX-XXXX-XXXX-XXXX"
                           aria-label="Username"
                           aria-describedby="basic-addon1"
-                          onChange={(event) => {
+                          value={CheckoutForm[2]}
+                          onInput={(event) => {
                             CheckoutForm[2] = event.target.value;
-                            setCheckoutForm(CheckoutForm);
+                            setCheckoutForm([...CheckoutForm]);
                           }}
                         />
                         <div class="valid-feedback">Looks good!</div>
@@ -213,9 +225,10 @@ export function Home() {
                         type="text"
                         class="form-control"
                         id="inputCity"
-                        onChange={(event) => {
+                        value={CheckoutForm[3]}
+                        onInput={(event) => {
                           CheckoutForm[3] = event.target.value;
-                          setCheckoutForm(CheckoutForm);
+                          setCheckoutForm([...CheckoutForm]);
                         }}
                       />
                     </div>
@@ -226,9 +239,10 @@ export function Home() {
                       <select
                         id="inputState"
                         class="form-select"
-                        onChange={(event) => {
+                        value={CheckoutForm[4]}
+                        onInput={(event) => {
                           CheckoutForm[4] = event.target.value;
-                          setCheckoutForm(CheckoutForm);
+                          setCheckoutForm([...CheckoutForm]);
                         }}
                       >
                         <option selected>Choose...</option>
@@ -243,9 +257,10 @@ export function Home() {
                         type="Number"
                         class="form-control"
                         id="inputZip"
+                        value={CheckoutForm[5]}
                         onChange={(event) => {
                           CheckoutForm[5] = event.target.value;
-                          setCheckoutForm(CheckoutForm);
+                          setCheckoutForm([...CheckoutForm]);
                         }}
                       />
                     </div>
