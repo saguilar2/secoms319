@@ -15,8 +15,8 @@ export function Home() {
   const [CartListsinfo, setCartListInfo] = useState([0, 0]);
   const [ProductsCategory, setProductsCategory] = useState(Products);
   const [query, setQuery] = useState("");
-  // index 0 = Name, 1 = Email, 2 = card number, 3 = city, 4 = state, 5 = Zip Code
-  const [CheckoutForm, setCheckoutForm] = useState(["", "", "", "", "", 0]);
+  // index 0 = Name, 1 = Email, 2 = card number, 3 = address, 4 = city, 5 = state, 6 = Zip Code
+  const [CheckoutForm, setCheckoutForm] = useState(["", "", "", "", "", "", 0]);
 
   const render_Cart = (CartListsinfo) => {
     return (
@@ -45,7 +45,8 @@ export function Home() {
                 </div>
                 <div class="col">
                   <div class="row text-muted">{product.title}</div>
-                  <div class="row">{product.category}</div>
+                  <div class="row text-muted">Category: {product.category}</div>
+                  <div class="row text-muted">Price: ${product.price}</div>
                 </div>
                 <div class="col">
                   <button
@@ -98,7 +99,33 @@ export function Home() {
         <div className="group relative shadow-lg">
           <div class="row border-top border-bottom">
             <div class="row main align-items-center">
+              <h1>Order Summary</h1>
               <div class="col">
+              
+                <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
+                  {/* Loop Products */}
+                  {CartListsItems.map((product, index) => (
+
+                    <div key={product.id} className="group relative shadow-lg">
+                      <div class="row border-top border-bottom" key={product.id}>
+                        <div class="row main align-items-center">
+                          <div class="col-2">
+                            <img class="img-fluid" src={product.image} />
+                          </div>
+                          <div class="col">
+                            <div class="row text-muted">{product.title}</div>
+                            <div class="row text-muted">Category: {product.category}</div>
+                            <div class="row text-muted">Price: ${product.price}</div>
+                            <div class="row text-muted">Quantity: {CartListsQuantety[index]}</div>
+                            <div class="row text-muted">Total: ${product.price * CartListsQuantety[index]}</div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
                 <div class="row">Name: {CheckoutForm[0]}</div>
                 <div class="row">Email: {CheckoutForm[1]}</div>
                 <div class="row">Card: {CheckoutForm[2]}</div>
@@ -110,6 +137,22 @@ export function Home() {
             <button
               key="ToHome"
               onClick={() => {
+                CartListsinfo[0] = 0;
+                CartListsinfo[1] = 0;
+                for (let index = CartListsItems.length; index > -1; index--) {
+                  
+                    if (CartListsQuantety[index] !== 0) {
+                      CartListsQuantety[index] = 0;
+                    }
+                    
+                    CartListsItems.splice(index, 1);
+                    
+                    //setCartListsItems([...CartListsItems]);
+                    //setCartListsQuantety([...CartListsQuantety]);
+                    //setCartListInfo([...CartListsinfo]);
+                   
+                  
+                }
                 ToHomeView();
               }}
             >
@@ -218,6 +261,19 @@ export function Home() {
                       </div>
                     </div>
 
+                     <div class="col-12">
+                      <label for="inputAddress" class="form-label">Address</label>
+                      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" 
+                        
+                        value={CheckoutForm[1]}
+                        onInput={(event) => {
+                          CheckoutForm[3] = event.target.value;
+                          setCheckoutForm([...CheckoutForm]);
+                        }}
+                      />
+                    </div>
+                    
+
                     <div class="col-md-6">
                       <label for="inputCity" class="form-label">
                         City
@@ -228,7 +284,7 @@ export function Home() {
                         id="inputCity"
                         value={CheckoutForm[3]}
                         onInput={(event) => {
-                          CheckoutForm[3] = event.target.value;
+                          CheckoutForm[4] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
                         }}
                       />
@@ -242,7 +298,7 @@ export function Home() {
                         class="form-select"
                         value={CheckoutForm[4]}
                         onInput={(event) => {
-                          CheckoutForm[4] = event.target.value;
+                          CheckoutForm[5] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
                         }}
                       >
@@ -263,7 +319,7 @@ export function Home() {
                         type="Number"
                         class="form-control"
                         id="inputZip"
-                        value={CheckoutForm[5]}
+                        value={CheckoutForm[6]}
                         onChange={(event) => {
                           CheckoutForm[5] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
