@@ -3,6 +3,7 @@ import logo from "./cart2.png";
 import React, { useState } from "react";
 import { Products } from "./Products";
 import { Categories } from "./Categories";
+import { States } from "./States";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -246,7 +247,12 @@ export function Home() {
                         }}
                       >
                         <option selected>Choose...</option>
-                        <option value="IA">IA</option>
+
+                        {States.map((state, index) => (
+                          <option key={index} value={state}>
+                            {state.Abbreviation}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div class="col-md-2">
