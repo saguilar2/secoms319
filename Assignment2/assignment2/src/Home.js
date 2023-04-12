@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { Products } from "./Products";
 import { Categories } from "./Categories";
 import { States } from "./States";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export function Home() {
   console.log("Step 1: After reading file :");
@@ -21,13 +19,9 @@ export function Home() {
   const render_Cart = (CartListsinfo) => {
     return (
       <div>
-        <p className="text-black">
-          Number of Items in cart: {CartListsinfo[0]}
-        </p>
+        <p>Number of Items in cart: {CartListsinfo[0]}</p>
 
-        <p className="text-black">
-          Total in cart: ${CartListsinfo[1].toFixed(2)}
-        </p>
+        <p>Total in cart: ${CartListsinfo[1].toFixed(2)}</p>
       </div>
     );
   };
@@ -38,20 +32,38 @@ export function Home() {
         {/* Loop Products */}
         {ProductsCategory.map((product, index) => (
           <div key={product.id} className="group relative shadow-lg">
-            <div class="row border-top border-bottom" key={product.id}>
+            <div >
               <div class="row main align-items-center">
-                <div class="col-2">
-                  <img class="img-fluid" src={product.image} />
+                <div className=" min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-60 lg:aspect-none"> 
+                  <img
+                    alt="Product Image"
+                    src={product.image}
+                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                  />
                 </div>
-                <div class="col">
-                  <div class="row text-muted">{product.title}</div>
-                  <div class="row text-muted">Category: {product.category}</div>
-                  <div class="row text-muted">Price: ${product.price}</div>
+                <div className="flex justify-between p-3">
+                  <div>
+                    <h3 className="text-sm text-gray-700">
+                      <a href={product.href}>
+                        <span style={{ fontSize: "16px", fontWeight: "600" }}>
+                          {product.title}
+                        </span>
+                      </a>
+                      <p>Tag - {product.category}</p>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Rating: {product.rating.rate}
+                    </p>
+                  </div>
+                  <p className="text-sm font-medium text-green-600">
+                    ${product.price}
+                  </p>
                 </div>
+
                 <div class="col">
                   <button
                     type="button"
-                    variant="light"
+                    className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
                     onClick={() => {
                       AddToCartClick(product);
                     }}
@@ -62,7 +74,7 @@ export function Home() {
                   {GetQunety(product) + " "}
                   <button
                     type="button"
-                    variant="light"
+                    className="inline-block bg-amber-600 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2"
                     onClick={() => {
                       RemoveToCartClick(product);
                     }}
@@ -86,7 +98,12 @@ export function Home() {
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-600 category-title">
           Products ({ProductsCategory.length})
         </h2>
-        <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
+        <div
+          style={{
+            maxHeight: `${window.innerHeight - 100}px`,
+            overflowY: "scroll",
+          }}
+        >
           <div>{render_choises(ProductsCategory)}</div>
         </div>
       </div>
@@ -95,31 +112,44 @@ export function Home() {
 
   const render_confirmation = () => {
     return (
-      <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
+      <div
+        style={{
+          maxHeight: `${window.innerHeight - 100}px`,
+          overflowY: "scroll",
+        }}
+      >
         <div className="group relative shadow-lg">
           <div class="row border-top border-bottom">
             <div class="row main align-items-center">
               <h1>Order Summary</h1>
               <div class="col">
-              
-                <div className="m-6 p-3 mt-10 ml-0 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-10">
+                <div>
                   {/* Loop Products */}
                   {CartListsItems.map((product, index) => (
-
                     <div key={product.id} className="group relative shadow-lg">
-                      <div class="row border-top border-bottom" key={product.id}>
+                      <div
+                        class="row border-top border-bottom"
+                        key={product.id}
+                      >
                         <div class="row main align-items-center">
                           <div class="col-2">
                             <img class="img-fluid" src={product.image} />
                           </div>
                           <div class="col">
                             <div class="row text-muted">{product.title}</div>
-                            <div class="row text-muted">Category: {product.category}</div>
-                            <div class="row text-muted">Price: ${product.price}</div>
-                            <div class="row text-muted">Quantity: {CartListsQuantety[index]}</div>
-                            <div class="row text-muted">Total: ${product.price * CartListsQuantety[index]}</div>
+                            <div class="row text-muted">
+                              Category: {product.category}
+                            </div>
+                            <div class="row text-muted">
+                              Price: ${product.price}
+                            </div>
+                            <div class="row text-muted">
+                              Quantity: {CartListsQuantety[index]}
+                            </div>
+                            <div class="row text-muted">
+                              Total: ${product.price * CartListsQuantety[index]}
+                            </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -134,26 +164,11 @@ export function Home() {
                 <div class="row">Zip: {CheckoutForm[5]}</div>
               </div>
             </div>
+
             <button
               key="ToHome"
               onClick={() => {
-                CartListsinfo[0] = 0;
-                CartListsinfo[1] = 0;
-                for (let index = CartListsItems.length; index > -1; index--) {
-                  
-                    if (CartListsQuantety[index] !== 0) {
-                      CartListsQuantety[index] = 0;
-                    }
-                    
-                    CartListsItems.splice(index, 1);
-                    
-                    //setCartListsItems([...CartListsItems]);
-                    //setCartListsQuantety([...CartListsQuantety]);
-                    //setCartListInfo([...CartListsinfo]);
-                   
-                  
-                }
-                ToHomeView();
+                window.location.reload();
               }}
             >
               Back to Home
@@ -181,7 +196,12 @@ export function Home() {
         >
           Back to Home
         </button>
-        <div style={{ maxHeight: "800px", overflowY: "scroll" }}>
+        <div
+          style={{
+            maxHeight: `${window.innerHeight - 100}px`,
+            overflowY: "scroll",
+          }}
+        >
           <div>{render_choises(ProductsCategory)}</div>
           <div>
             <div class="container">
@@ -261,10 +281,15 @@ export function Home() {
                       </div>
                     </div>
 
-                     <div class="col-12">
-                      <label for="inputAddress" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" 
-                        
+                    <div class="col-12">
+                      <label for="inputAddress" class="form-label">
+                        Address
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputAddress"
+                        placeholder="1234 Main St"
                         value={CheckoutForm[1]}
                         onInput={(event) => {
                           CheckoutForm[3] = event.target.value;
@@ -272,7 +297,6 @@ export function Home() {
                         }}
                       />
                     </div>
-                    
 
                     <div class="col-md-6">
                       <label for="inputCity" class="form-label">
@@ -492,7 +516,11 @@ export function Home() {
       )}
       <div
         className="h-screen  bg-slate-800 p-3 xl:basis-1/5"
-        style={{ minWidth: "65%" }}
+        style={{
+          maxHeight: `${window.innerHeight}px`,
+          minWidth: "65%",
+          overflowY: "scroll",
+        }}
       >
         <button
           key="ToCart"
@@ -503,7 +531,7 @@ export function Home() {
           <img className="w-full" src={logo} alt="cart" />
         </button>
         <div className="px-6 py-4">
-          <h1 className="text-3xl mb-2 font-bold text-black"> Shopping App </h1>
+          <h1 className="text-3xl mb-2 font-bold text-white"> Shopping App </h1>
           <p className="text-gray-700 text-black">
             by - <b style={{ color: "orange" }}>Kolby Kucera, Simon Aguilar</b>
           </p>
@@ -524,7 +552,7 @@ export function Home() {
           <div className="py-5">
             <input type="search" value={query} onChange={handleChange} />
           </div>
-          <div className="py-1">{render_Cart(CartListsinfo)}</div>
+          <div className="py-1 text-white"> {render_Cart(CartListsinfo)}</div>
         </div>
       </div>
       <div className="ml-5  p-10 xl:basis-4/5">
