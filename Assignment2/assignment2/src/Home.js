@@ -314,27 +314,20 @@ export function Home() {
                         }}
                       />
                     </div>
-                    <div class="col-md-4">
-                      <label for="inputState" class="form-label">
+                    <div class="col-md-6">
+                      <label for="inputCity" class="form-label">
                         State
                       </label>
-                      <select
-                        id="inputState"
-                        class="form-select"
-                        value={CheckoutForm[5]}
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputCity"
+                        value={CheckoutForm[4]}
                         onInput={(event) => {
-                          CheckoutForm[5] = event.target.value;
+                          CheckoutForm[4] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
                         }}
-                      >
-                        <option selected>Choose...</option>
-
-                        {States.map((state, index) => (
-                          <option key={index} value={state}>
-                            {state.Abbreviation}
-                          </option>
-                        ))}
-                      </select>
+                      />
                     </div>
                     <div class="col-md-2">
                       <label for="inputZip" class="form-label">
