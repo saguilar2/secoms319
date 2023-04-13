@@ -314,6 +314,7 @@ export function Home() {
                         }}
                       />
                     </div>
+                    
                     <div class="col-md-6">
                       <label for="inputCity" class="form-label">
                         State
@@ -329,6 +330,7 @@ export function Home() {
                         }}
                       />
                     </div>
+
                     <div class="col-md-2">
                       <label for="inputZip" class="form-label">
                         Zip
