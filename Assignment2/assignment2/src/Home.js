@@ -156,12 +156,13 @@ export function Home() {
                   ))}
                 </div>
 
-                <div class="row">Name: {CheckoutForm[0]}</div>
-                <div class="row">Email: {CheckoutForm[1]}</div>
-                <div class="row">Card: {CheckoutForm[2]}</div>
-                <div class="row">City: {CheckoutForm[3]}</div>
-                <div class="row">State: {CheckoutForm[4]}</div>
-                <div class="row">Zip: {CheckoutForm[5]}</div>
+                <div class="row">   Name: {CheckoutForm[0]}</div>
+                <div class="row">   Email: {CheckoutForm[1]}</div>
+                <div class="row">   Card: {CheckoutForm[2]}</div>
+                <div class="row">   Address: {CheckoutForm[3]}</div>
+                <div class="row">   City: {CheckoutForm[4]}</div>
+                <div class="row">   State: {CheckoutForm[5]}</div>
+                <div class="row">   Zip: {CheckoutForm[6]}</div>
               </div>
             </div>
 
@@ -290,7 +291,7 @@ export function Home() {
                         class="form-control"
                         id="inputAddress"
                         placeholder="1234 Main St"
-                        value={CheckoutForm[1]}
+                        value={CheckoutForm[3]}
                         onInput={(event) => {
                           CheckoutForm[3] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
@@ -306,7 +307,7 @@ export function Home() {
                         type="text"
                         class="form-control"
                         id="inputCity"
-                        value={CheckoutForm[3]}
+                        value={CheckoutForm[4]}
                         onInput={(event) => {
                           CheckoutForm[4] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
@@ -320,7 +321,7 @@ export function Home() {
                       <select
                         id="inputState"
                         class="form-select"
-                        value={CheckoutForm[4]}
+                        value={CheckoutForm[5]}
                         onInput={(event) => {
                           CheckoutForm[5] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
@@ -345,7 +346,7 @@ export function Home() {
                         id="inputZip"
                         value={CheckoutForm[6]}
                         onChange={(event) => {
-                          CheckoutForm[5] = event.target.value;
+                          CheckoutForm[6] = event.target.value;
                           setCheckoutForm([...CheckoutForm]);
                         }}
                       />
@@ -532,7 +533,7 @@ export function Home() {
         </button>
         <div className="px-6 py-4">
           <h1 className="text-3xl mb-2 font-bold text-white"> Shopping App </h1>
-          <p className="text-gray-700 text-black">
+          <p className="text-gray-700 text-white">
             by - <b style={{ color: "orange" }}>Kolby Kucera, Simon Aguilar</b>
           </p>
           <div className="py-10">
