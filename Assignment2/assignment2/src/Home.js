@@ -156,13 +156,13 @@ export function Home() {
                   ))}
                 </div>
 
-                <div class="row">   Name: {CheckoutForm[0]}</div>
-                <div class="row">   Email: {CheckoutForm[1]}</div>
-                <div class="row">   Card: {CheckoutForm[2]}</div>
-                <div class="row">   Address: {CheckoutForm[3]}</div>
-                <div class="row">   City: {CheckoutForm[4]}</div>
-                <div class="row">   State: {CheckoutForm[5]}</div>
-                <div class="row">   Zip: {CheckoutForm[6]}</div>
+                <div class="row">--Name: {CheckoutForm[0]}</div>
+                <div class="row">--Email: {CheckoutForm[1]}</div>
+                <div class="row">--Card: {CheckoutForm[2]}</div>
+                <div class="row">--Address: {CheckoutForm[3]}</div>
+                <div class="row">--City: {CheckoutForm[4]}</div>
+                <div class="row">--State: {CheckoutForm[5]}</div>
+                <div class="row">--Zip: {CheckoutForm[6]}</div>
               </div>
             </div>
 
