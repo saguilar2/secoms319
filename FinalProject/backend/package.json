@@ -8,5 +8,8 @@
     "start": "node server.js"
   },
   "author": "Simon Aguilar and Kolby Kucera",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^5.3.0"
+  }
 }
