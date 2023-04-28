@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./Home";
 import { SignIn } from "./SignIn";
@@ -9,11 +9,11 @@ import { Checkout } from "./Checkout";
 function App() {
   return (
     <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/Cart" element={<SignIn />} />
-    <Route path="/Pets" element={<Pets />} />
-    <Route path="/Checkout" element={<Checkout />} />
-  </Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/SignIn" element={<SignIn />} />
+      <Route path="/Pets" element={<Pets />} />
+      <Route path="/Checkout" element={<Checkout />} />
+    </Routes>
   );
 }
 
