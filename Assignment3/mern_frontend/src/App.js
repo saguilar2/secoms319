@@ -88,6 +88,31 @@ function App() {
     }
   }
 
+  function handleChangeProductToUpdate(evt) {
+    const value = evt.target.value;
+    if (evt.target.name === "_id") {
+      setProductToUpdate({ ...ProductToUpdate, _id: value });
+    } else if (evt.target.name === "title") {
+      setProductToUpdate({ ...ProductToUpdate, title: value });
+    } else if (evt.target.name === "price") {
+      setProductToUpdate({ ...ProductToUpdate, price: value });
+    } else if (evt.target.name === "description") {
+      setProductToUpdate({ ...ProductToUpdate, description: value });
+    } else if (evt.target.name === "category") {
+      setProductToUpdate({ ...ProductToUpdate, category: value });
+    } else if (evt.target.name === "image") {
+      const temp = value;
+      setProductToUpdate({ ...ProductToUpdate, image: temp });
+    } else if (evt.target.name === "rate") {
+      setProductToUpdate({ ...ProductToUpdate, rating: { rate: value } });
+    } else if (evt.target.name === "count") {
+      const temp = ProductToUpdate.rating.rate;
+      setProductToUpdate({
+        ...ProductToUpdate,
+        rating: { rate: temp, count: value },
+      });
+    }
+  }
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log(e.target.value);
@@ -107,8 +132,63 @@ function App() {
         }
       });
   }
+  function handleOnChange(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    var Tosend = {};
+    if (ProductToUpdate.price !== 0) {
+      Tosend.price = ProductToUpdate.price;
+    }
+
+    if (ProductToUpdate.title !== "") {
+      Tosend.title = ProductToUpdate.title;
+    }
+
+    if (ProductToUpdate.category !== "") {
+      Tosend.category = ProductToUpdate.category;
+    }
+
+    if (ProductToUpdate.image !== "127.0.0.1:4000/images/") {
+      Tosend.image = ProductToUpdate.image;
+    }
+
+    if (ProductToUpdate.rating.count !== 0) {
+      Tosend.rating.count = ProductToUpdate.rating.count;
+    }
+    if (ProductToUpdate.rating.rate !== 0) {
+      Tosend.rating.rate = ProductToUpdate.rating.rate;
+    }
+    if (ProductToUpdate.description !== "") {
+      Tosend.description = ProductToUpdate.description;
+    }
+    fetch("http://localhost:4000/edite/" + ProductToUpdate._id, {
+      method: "Put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Tosend),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Post a new product completed");
+        console.log(data);
+        if (data) {
+          //const keys = Object.keys(data);
+          const value = Object.values(data);
+          alert(value);
+        }
+      });
+  }
 
   const [addNewProduct, setAddNewProduct] = useState({
+    _id: 0,
+    title: "",
+    price: 0.0,
+    description: "",
+    category: "",
+    image: "http://127.0.0.1:4000/images/",
+    rating: { rate: 0.0, count: 0 },
+  });
+
+  const [ProductToUpdate, setProductToUpdate] = useState({
     _id: 0,
     title: "",
     price: 0.0,
@@ -260,20 +340,86 @@ function App() {
         >
           Delete
         </button>
-        { () =>{ if (product.length > 0) {
-        checked4 && (
-          
-          <div key={product[index]._id}>
-            <img src={product[index].image} width={30} /> <br />
-            Id:{product[index]._id} <br />
-            Title: {product[index].title} <br />
-            Category: {product[index].category} <br />
-            Price: {product[index].price} <br />
-            Rate :{product[index].rating.rate} and Count:
-            {product[index].rating.count} <br />
-          </div>
-           
-        )}}}
+        {() => {
+          if (product.length > 0) {
+            checked4 && (
+              <div key={product[index]._id}>
+                <img src={product[index].image} width={30} /> <br />
+                Id:{product[index]._id} <br />
+                Title: {product[index].title} <br />
+                Category: {product[index].category} <br />
+                Price: {product[index].price} <br />
+                Rate :{product[index].rating.rate} and Count:
+                {product[index].rating.count} <br />
+              </div>
+            );
+          }
+        }}
+      </div>
+      <hr></hr>
+      <div>
+        <h3>change a product :</h3>
+        <form action="">
+          <input
+            type="number"
+            placeholder="id?"
+            name="_id"
+            value={ProductToUpdate._id}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="text"
+            placeholder="title?"
+            name="title"
+            value={ProductToUpdate.title}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="number"
+            placeholder="price?"
+            name="price"
+            value={ProductToUpdate.price}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="text"
+            placeholder="description?"
+            name="description"
+            value={ProductToUpdate.description}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="text"
+            placeholder="category?"
+            name="category"
+            value={ProductToUpdate.category}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="text"
+            placeholder="image?"
+            name="image"
+            value={ProductToUpdate.image}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="number"
+            placeholder="rate?"
+            name="rate"
+            value={ProductToUpdate.rating.rate}
+            onChange={handleChangeProductToUpdate}
+          />
+          <input
+            type="number"
+            placeholder="count?"
+            name="count"
+            value={ProductToUpdate.rating.count}
+            onChange={handleChangeProductToUpdate}
+          />
+          <button type="submit" onClick={handleOnChange}>
+            Edit
+          </button>
+        </form>
       </div>
     </div>
   );
