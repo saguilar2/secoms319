@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 
-
 function App() {
-
-  
-
   const [product, setProduct] = useState([]);
   const [viewer1, setViewer1] = useState(false);
   const [oneProduct, setOneProduct] = useState([]);
@@ -14,9 +10,8 @@ function App() {
   const [viewer4, setViewer4] = useState(false);
 
   //useEffect(() => {
-    //getAllProducts();
+  //getAllProducts();
   //}, [checked4]);
-
 
   function getAllProducts() {
     fetch("http://localhost:4000/")
@@ -38,7 +33,6 @@ function App() {
       Rate :{el.rating.rate} and Count:{el.rating.count} <br />
     </div>
   ));
-
 
   function getOneProduct(id) {
     console.log(id);
@@ -94,7 +88,6 @@ function App() {
     }
   }
 
-
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log(e.target.value);
@@ -114,8 +107,6 @@ function App() {
         }
       });
   }
-
-
 
   const [addNewProduct, setAddNewProduct] = useState({
     _id: 0,
@@ -165,15 +156,18 @@ function App() {
     setChecked4(!checked4);
   }
 
-
-
-
   return (
     <div>
       <h1>Catalog of Products</h1>
 
       <button onClick={() => getAllProducts()}>Show All products</button>
-      <input type="text" id="message" name="message" placeholder="id" onChange={(e) => getOneProduct(e.target.value)} />
+      <input
+        type="text"
+        id="message"
+        name="message"
+        placeholder="id"
+        onChange={(e) => getOneProduct(e.target.value)}
+      />
 
       <h1>Show all available Products.</h1>
       <hr></hr>
@@ -185,14 +179,62 @@ function App() {
       <div>
         <h3>Add a new product :</h3>
         <form action="">
-          <input type="number" placeholder="id?" name="_id" value={addNewProduct._id} onChange={handleChange} />
-          <input type="text" placeholder="title?" name="title" value={addNewProduct.title} onChange={handleChange} />
-          <input type="number" placeholder="price?" name="price" value={addNewProduct.price} onChange={handleChange} />
-          <input type="text" placeholder="description?" name="description" value={addNewProduct.description} onChange={handleChange} />
-          <input type="text" placeholder="category?" name="category" value={addNewProduct.category} onChange={handleChange} />
-          <input type="text" placeholder="image?" name="image" value={addNewProduct.image} onChange={handleChange} />
-          <input type="number" placeholder="rate?" name="rate" value={addNewProduct.rating.rate} onChange={handleChange} />
-          <input type="number" placeholder="count?" name="count" value={addNewProduct.rating.count} onChange={handleChange} />
+          <input
+            type="number"
+            placeholder="id?"
+            name="_id"
+            value={addNewProduct._id}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="title?"
+            name="title"
+            value={addNewProduct.title}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            placeholder="price?"
+            name="price"
+            value={addNewProduct.price}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="description?"
+            name="description"
+            value={addNewProduct.description}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="category?"
+            name="category"
+            value={addNewProduct.category}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="image?"
+            name="image"
+            value={addNewProduct.image}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            placeholder="rate?"
+            name="rate"
+            value={addNewProduct.rating.rate}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            placeholder="count?"
+            name="count"
+            value={addNewProduct.rating.count}
+            onChange={handleChange}
+          />
           <button type="submit" onClick={handleOnSubmit}>
             submit
           </button>
@@ -200,12 +242,27 @@ function App() {
       </div>
       <div>
         <h3>Delete one product:</h3>
-        <input type="checkbox" id="acceptdelete" name="acceptdelete" checked={checked4}
-          onChange={(e) => setChecked4(!checked4)} />
+        <input
+          type="checkbox"
+          id="acceptdelete"
+          name="acceptdelete"
+          checked={checked4}
+          onChange={(e) => setChecked4(!checked4)}
+        />
         <button onClick={() => getOneByOneProductPrev()}>Prev</button>
         <button onClick={() => getOneByOneProductNext()}>Next</button>
-        <button onClick={() => deleteOneProduct(product[index]._id)}>Delete</button>
-        {checked4 && (
+        <button
+          onClick={() => {
+            if (product.length !== 0) {
+              deleteOneProduct(product[index]._id);
+            }
+          }}
+        >
+          Delete
+        </button>
+        { () =>{ if (product.length > 0) {
+        checked4 && (
+          
           <div key={product[index]._id}>
             <img src={product[index].image} width={30} /> <br />
             Id:{product[index]._id} <br />
@@ -215,27 +272,11 @@ function App() {
             Rate :{product[index].rating.rate} and Count:
             {product[index].rating.count} <br />
           </div>
-        )}
+           
+        )}}}
       </div>
-
-
-
     </div>
-
   );
-
-
-
-
-
-
-
-
 } // App end
-
-
-
-
-
 
 export default App;
