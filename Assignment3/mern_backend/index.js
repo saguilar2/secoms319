@@ -90,3 +90,25 @@ app.delete("/delete", async (req, res) => {
 });
 
 
+app.put("/edite/:id", async (req, res) => {
+    console.log(req.body);
+    const id = req.params.id;
+    const query = { _id: id };
+    const oneProduct = await Product.findOne(query);
+    try {
+        if(!oneProduct) {
+            const messageResponse = { message: `Product ${id} does not exits` };
+            return  res.send(JSON.stringify(messageResponse));
+            }else {
+                 
+                let updateStudent = await Product.findByIdAndUpdate(id , req.body);
+                const messageResponse = { message: `Product ${id} edidted correctly` };
+                res.send(JSON.stringify(messageResponse));
+             }
+
+
+    } catch (err) {
+        console.log("Error while adding a new product:" + err);
+    }
+
+});
