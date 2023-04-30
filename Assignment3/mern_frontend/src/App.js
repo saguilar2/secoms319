@@ -237,10 +237,17 @@ function App() {
   }
 
   return (
+
     <div>
-      <h1>Catalog of Products</h1>
+      <h1 style={{textAlign:'center'}}>Assignment 3</h1>
 
       <button onClick={() => getAllProducts()}>Show All products</button>
+      
+
+      <h1>Show all available Products.</h1>
+      <hr></hr>
+      {viewer1 && <div>Products {showAllItems}</div>}
+      <hr></hr>
       <input
         type="text"
         id="message"
@@ -248,11 +255,6 @@ function App() {
         placeholder="id"
         onChange={(e) => getOneProduct(e.target.value)}
       />
-
-      <h1>Show all available Products.</h1>
-      <hr></hr>
-      {viewer1 && <div>Products {showAllItems}</div>}
-      <hr></hr>
       <h1>Show one Product by Id:</h1>
       {viewer2 && <div>Product: {showOneItem}</div>}
       <hr></hr>
@@ -316,7 +318,7 @@ function App() {
             onChange={handleChange}
           />
           <button type="submit" onClick={handleOnSubmit}>
-            submit
+            S ubmit
           </button>
         </form>
       </div>
@@ -358,7 +360,7 @@ function App() {
       </div>
       <hr></hr>
       <div>
-        <h3>change a product :</h3>
+        <h3>Change a product :</h3>
         <form action="">
           <input
             type="number"
