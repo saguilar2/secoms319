@@ -148,7 +148,7 @@ function App() {
       Tosend.category = ProductToUpdate.category;
     }
 
-    if (ProductToUpdate.image !== "127.0.0.1:4000/images/") {
+    if (ProductToUpdate.image !== "http://127.0.0.1:4000/images/") {
       Tosend.image = ProductToUpdate.image;
     }
 
@@ -237,12 +237,15 @@ function App() {
   }
 
   return (
-
-    <div>
-      <h1 style={{textAlign:'center'}}>Assignment 3</h1>
+    <div
+      style={{
+        maxHeight: `${window.innerHeight - 100}px`,
+        overflowY: "scroll",
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>Assignment 3</h1>
 
       <button onClick={() => getAllProducts()}>Show All products</button>
-      
 
       <h1>Show all available Products.</h1>
       <hr></hr>
@@ -318,7 +321,7 @@ function App() {
             onChange={handleChange}
           />
           <button type="submit" onClick={handleOnSubmit}>
-            S ubmit
+            Submit
           </button>
         </form>
       </div>
@@ -423,6 +426,7 @@ function App() {
           </button>
         </form>
       </div>
+      <hr></hr>
     </div>
   );
 } // App end
