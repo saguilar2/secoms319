@@ -118,6 +118,7 @@ app.post("/Users/insert", async (req, res) => {
   formData.F_Name = req.body.F_Name;
   formData.L_Name = req.body.L_Name;
   formData.Email = req.body.Email;
+  formData.Password = req.body.Password;
   formData.Phone_Number = req.body.Phone_Number;
   formData.Adrress = req.body.Adrress;
   formData.Birthday = req.body.Birthday;
