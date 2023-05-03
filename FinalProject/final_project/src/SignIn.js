@@ -1,28 +1,32 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useShareableState } from "./Global";
+import { useBetween } from "use-between";
 
 export function SignIn() {
+  const { setLogin, setUser } = useBetween(useShareableState);
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const [Login, setLogin] = useState(false);
 
   function SingIn() {
-    if (Password !== "" && Email !== "") {
-      fetch("http://localhost:4000/UsersEmail/" + Email)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("get user with email:", Email);
-          console.log(data);
-          const User = data;
-          if (User.Password === Password) {
-            setLogin(true);
-            alert("True password");
-          } else {
-            setLogin(false);
-            alert("false password");
-          }
-        });
-    }
+    console.log("get user with email:", Email);
+    setLogin(true);
+    fetch("http://localhost:4000/UsersEmail/" + Email)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("get user with email:", Email);
+        console.log(data);
+        const User = data;
+
+        if (User.Password === Password) {
+          setLogin(true);
+          setUser(User);
+          alert("True password");
+        } else {
+          setLogin(false);
+          alert("false password");
+        }
+      });
   }
 
   return (
@@ -42,8 +46,8 @@ export function SignIn() {
                 id="email"
                 aria-describedby="emailHelp"
                 value={Email}
-                onChange={() => {
-                  setEmail(this.value);
+                onChange={(event) => {
+                  setEmail(event.target.value);
                 }}
               />
               <div id="emailHelp" class="form-text">
@@ -59,8 +63,8 @@ export function SignIn() {
                 class="form-control"
                 id="password"
                 value={Password}
-                onChange={() => {
-                  setPassword(this.value);
+                onChange={(event) => {
+                  setPassword(event.target.value);
                 }}
               />
             </div>
