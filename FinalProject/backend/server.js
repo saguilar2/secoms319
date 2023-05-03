@@ -66,7 +66,7 @@ app.delete("/Pets/delete", async (req, res) => {
     const query = { _id: req.body._id };
     await Pets.deleteOne(query);
     const messageResponse = {
-      message: `Pets ${req.body._id} deleted correctly`,
+      message: `Pet ${req.body._id} Adopted!`,
     };
     res.send(JSON.stringify(messageResponse));
   } catch (err) {

@@ -5,6 +5,7 @@ export function Pets() {
 
     const [currentView, setView] = useState(0);
     const [pets, setPets] = useState([]);
+    const [chosenPet, setChosenPet] = useState([])
 
 
     //Showing all pets
@@ -18,20 +19,6 @@ export function Pets() {
             });
 
     }
-
-    const showAllPets = pets.map((pets) => (
-        <div
-            key={pets._id}>
-            <img src={pets.image} width={30} /> <br />
-            Name: {pets.Name} <br />
-            Description: {pets.Description} <br />
-            Birthday :{pets.Birthday}
-            Species:{pets.Species} <br />
-            Breed: {pets.Breed} <br />
-            Gender :{pets.Gender}
-        </div>
-    ));
-
 
 
     //Adding a pet
@@ -74,10 +61,11 @@ export function Pets() {
                     alert(value);
                 }
             });
+        handleViewChange(0)
     }
 
     const [addNewPet, setAddNewPet] = useState({
-        _id: 3,
+        _id: 4,
         Name: "",
         Description: "",
         Image: "",
@@ -88,22 +76,96 @@ export function Pets() {
     });
 
 
+    //When user clicks adopt
+    function handleAdopt(pets) {
+        setChosenPet(pets)
+        handleViewChange(1)
+    }
+
+
+    //After confirmed checkout delete pet from database
+    function deleteOneProduct(deleteid) {
+        console.log("Product to delete :", deleteid);
+        fetch("http://localhost:4000/Pets/delete", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id: deleteid }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Delete a product completed : ", deleteid);
+            console.log(data);
+            if (data) {
+              //const keys = Object.keys(data);
+              const value = Object.values(data);
+              alert(value);
+            }
+          });
+    }
+
+
+    function handleCheckout(){
+        deleteOneProduct(chosenPet._id)
+        handleViewChange(0)
+    }
 
 
 
 
 
 
+
+    //Views
     const petsView = () => {
         return (
-            <div> {showAllPets} </div>
+            <div class="container">
+                <div class="row">
+                    {pets.map((pets) => (
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src={pets.Image} class="card-img-top" alt="Pet" />
+                                <div class="card-body">
+                                    <h5 class="card-title">Name: {pets.Name}</h5>
+                                    <p class="card-text">Description: {pets.Description}</p>
+                                    <p class="card-text">Birthday: {pets.Birthday}</p>
+                                    <p class="card-text">Species: {pets.Species}</p>
+                                    <p class="card-text">Breed: {pets.Breed}</p>
+                                    <p class="card-text">Gender: {pets.Gender}</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pets)}>Adopt</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
         );
     };
 
     const cartView = () => {
         return (
-            <div>
-                cart to-do
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="card">
+                    <img src={chosenPet.Image} class="card-img-top img-fluid" alt="Pet" />
+                    <div class="card-body">
+                        <h5 class="card-title display-3">{chosenPet.Name}</h5>
+                        <p class="card-text">Description: {chosenPet.Description}</p>
+                        <p class="card-text">Birthday: {chosenPet.Birthday}</p>
+                        <p class="card-text">Species: {chosenPet.Species}</p>
+                        <p class="card-text">Breed: {chosenPet.Breed}</p>
+                        <p class="card-text">Gender: {chosenPet.Gender}</p>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(2)}>Proceed to Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         );
     };
@@ -143,7 +205,7 @@ export function Pets() {
                                         <label htmlFor="cvv">CVV</label>
                                         <input type="text" className="form-control" id="cvv" placeholder="Enter CVV" />
                                     </div>
-                                    <button type="submit" className="btn btn-primary btn-block">Place Order</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={() => handleCheckout()}>Confirm Adoption</button>
                                 </form>
                             </div>
                         </div>
@@ -206,7 +268,7 @@ export function Pets() {
 
 
 
-
+    //Handling view changes
     function handleViewChange(view) {
         if (view === 0) {
             getAllPets()
@@ -221,7 +283,6 @@ export function Pets() {
         }
     }
 
-
     function SettingView(currentView) {
         if (currentView === 0) {
             return petsView()
@@ -235,7 +296,7 @@ export function Pets() {
         }
     }
 
-
+    //main screen
     return (
 
         <body>
@@ -255,9 +316,7 @@ export function Pets() {
 
                             </ul>
                             <form class="d-flex" role="search">
-                                <button onClick={() => handleViewChange(1)}>Cart</button>
                                 <button onClick={() => handleViewChange(0)}>Pets</button>
-                                <button onClick={() => handleViewChange(2)}>Checkout</button>
                                 <button onClick={() => handleViewChange(3)}>Add</button>
                                 <Link to="/"><button class="btn btn-lg btn-primary" type="submit">Sign Out</button></Link>
                             </form>
