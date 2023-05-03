@@ -110,6 +110,14 @@ app.get("/Users/:id", async (req, resp) => {
   resp.send(oneUsers);
 });
 
+app.get("/Users/:email", async (req, resp) => {
+  const email = req.params.email;
+  const query = { Email: email };
+  const oneUsers = await Users.findOne(query);
+  console.log(oneUsers);
+  resp.send(oneUsers);
+});
+
 app.post("/Users/insert", async (req, res) => {
   console.log(req.body);
   const formData = new Users();

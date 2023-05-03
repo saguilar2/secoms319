@@ -85,7 +85,7 @@ export function Home() {
             <p>Student 1: Kolby Kucera</p>
             <p>Email: kolbykuc@iastate.edu</p>
             <p>Student 2: Simon Aguilar</p>
-            <p>Email:</p>
+            <p>Email: saguilar@iastate.edu</p>
             <p>Professor: Dr. Abraham N. Aldaco Gastelum</p>
             <p>Email:</p>
           </footer>
