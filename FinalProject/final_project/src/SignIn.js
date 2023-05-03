@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useShareableState } from "./Global";
 import { useBetween } from "use-between";
 
@@ -7,6 +8,8 @@ export function SignIn() {
   const { setLogin, setUser } = useBetween(useShareableState);
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   function SingIn(e) {
     e.preventDefault();
@@ -22,6 +25,7 @@ export function SignIn() {
         if (User.Password === Password) {
           setLogin(true);
           setUser(User);
+          navigate("/Pets");
         } else {
           setLogin(false);
           alert("Not a valid password or Email");
@@ -83,7 +87,7 @@ export function SignIn() {
               </button>
             </Link>
             <Link to="/Pets">
-              <button class="btn btn-lg btn-primary" type="submit">
+              <button className="btn btn-lg btn-primary" type="submit">
                 Pets
               </button>
             </Link>
