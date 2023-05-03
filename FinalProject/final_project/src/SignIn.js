@@ -8,7 +8,8 @@ export function SignIn() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  function SingIn() {
+  function SingIn(e) {
+    e.preventDefault();
     console.log("get user with email:", Email);
     setLogin(true);
     fetch("http://localhost:4000/UsersEmail/" + Email)
@@ -21,28 +22,27 @@ export function SignIn() {
         if (User.Password === Password) {
           setLogin(true);
           setUser(User);
-          alert("True password");
         } else {
           setLogin(false);
-          alert("false password");
+          alert("Not a valid password or Email");
         }
       });
   }
 
   return (
-    <body>
-      <div class="container mt-5">
-        <h1 class="text-center">Sign In</h1>
+    <div>
+      <div className="container mt-5">
+        <h1 className="text-center">Sign In</h1>
 
-        <div class="row justify-content-center">
-          <form class="col-lg-6 col-md-8 col-sm-10 col-12 mt-5 mx-auto">
-            <div class="mb-3">
-              <label for="email" class="form-label">
+        <div className="row justify-content-center">
+          <form className="col-lg-6 col-md-8 col-sm-10 col-12 mt-5 mx-auto">
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
                 Username
               </label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="email"
                 aria-describedby="emailHelp"
                 value={Email}
@@ -50,17 +50,17 @@ export function SignIn() {
                   setEmail(event.target.value);
                 }}
               />
-              <div id="emailHelp" class="form-text">
+              <div id="emailHelp" className="form-text">
                 We'll never share your personal info with anyone else.
               </div>
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="password"
                 value={Password}
                 onChange={(event) => {
@@ -70,7 +70,7 @@ export function SignIn() {
             </div>
 
             <button
-              class="btn btn-lg btn-primary"
+              className="btn btn-lg btn-primary"
               type="submit"
               onClick={SingIn}
             >
@@ -78,13 +78,13 @@ export function SignIn() {
             </button>
 
             <Link to="/">
-              <button class="btn btn-lg btn-primary" type="submit">
+              <button className="btn btn-lg btn-primary" type="submit">
                 Home
               </button>
             </Link>
           </form>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
