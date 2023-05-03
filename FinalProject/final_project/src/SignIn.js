@@ -82,6 +82,11 @@ export function SignIn() {
                 Home
               </button>
             </Link>
+            <Link to="/Pets">
+              <button class="btn btn-lg btn-primary" type="submit">
+                Pets
+              </button>
+            </Link>
           </form>
         </div>
       </div>

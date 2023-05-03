@@ -4,12 +4,99 @@ import React, { useState } from "react";
 export function Pets() {
 
     const [currentView, setView] = useState(0);
+    const [pets, setPets] = useState([]);
+
+
+    //Showing all pets
+    function getAllPets() {
+        fetch("http://localhost:4000/Pets")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Show Pets :");
+                console.log(data);
+                setPets(data);
+            });
+
+    }
+
+    const showAllPets = pets.map((pets) => (
+        <div
+            key={pets._id}>
+            <img src={pets.image} width={30} /> <br />
+            Name: {pets.Name} <br />
+            Description: {pets.Description} <br />
+            Birthday :{pets.Birthday}
+            Species:{pets.Species} <br />
+            Breed: {pets.Breed} <br />
+            Gender :{pets.Gender}
+        </div>
+    ));
+
+
+
+    //Adding a pet
+    function handleAddPetChange(evt) {
+        const value = evt.target.value;
+        if (evt.target.name === "_id") {
+            setAddNewPet({ ...addNewPet, _id: value });
+        } else if (evt.target.name === "Name") {
+            setAddNewPet({ ...addNewPet, Name: value });
+        } else if (evt.target.name === "Description") {
+            setAddNewPet({ ...addNewPet, Description: value });
+        } else if (evt.target.name === "Image") {
+            setAddNewPet({ ...addNewPet, Image: value });
+        } else if (evt.target.name === "Birthday") {
+            setAddNewPet({ ...addNewPet, Birthday: value });
+        } else if (evt.target.name === "Species") {
+            setAddNewPet({ ...addNewPet, Species: value });
+        } else if (evt.target.name === "Breed") {
+            setAddNewPet({ ...addNewPet, Breed: value });
+        } else if (evt.target.name === "Gender") {
+            setAddNewPet({ ...addNewPet, Gender: value });
+        }
+    }
+
+    function handleOnSubmitNewPet(e) {
+        e.preventDefault();
+        console.log(e.target.value);
+        fetch("http://localhost:4000/Pets/Insert", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(addNewPet),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Post a new product completed");
+                console.log(data);
+                if (data) {
+                    //const keys = Object.keys(data);
+                    const value = Object.values(data);
+                    alert(value);
+                }
+            });
+    }
+
+    const [addNewPet, setAddNewPet] = useState({
+        _id: 3,
+        Name: "",
+        Description: "",
+        Image: "",
+        Birthday: "",
+        Species: "",
+        Breed: "",
+        Gender: ""
+    });
+
+
+
+
+
+
+
 
     const petsView = () => {
         return (
-            <div>
-                List of Pets To-do
-            </div>
+            <div> {showAllPets} </div>
         );
     };
 
@@ -79,29 +166,33 @@ export function Pets() {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
-                                        <input type="text" className="form-control" id="name" placeholder="Enter name" />
+                                        <input type="text" className="form-control" placeholder="Name" name="Name" value={addNewPet.Name} onChange={handleAddPetChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="email">Age</label>
-                                        <input type="email" className="form-control" id="email" placeholder="Enter age" />
+                                        <label htmlFor="email">Description</label>
+                                        <input type="text" className="form-control" placeholder="Description" name="Description" value={addNewPet.Description} onChange={handleAddPetChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="address">Description</label>
-                                        <input type="text" className="form-control" id="address" placeholder="Enter description" />
+                                        <label htmlFor="address">Image</label>
+                                        <input type="text" className="form-control" placeholder="Image" name="Image" value={addNewPet.Image} onChange={handleAddPetChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="cardNumber">Image</label>
-                                        <input type="text" className="form-control" id="cardNumber" placeholder="Enter image" />
+                                        <label htmlFor="cardNumber">Birthday</label>
+                                        <input type="text" className="form-control" placeholder="Birthday" name="Birthday" value={addNewPet.Birthday} onChange={handleAddPetChange} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="expiryDate">Species</label>
-                                        <input type="text" className="form-control" id="expiryDate" placeholder="Enter species" />
+                                        <input type="text" className="form-control" placeholder="Species" name="Species" value={addNewPet.Species} onChange={handleAddPetChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="cvv">Other notes</label>
-                                        <input type="text" className="form-control" id="cvv" placeholder="Enter other notes" />
+                                        <label htmlFor="cvv">Breed</label>
+                                        <input type="text" className="form-control" placeholder="Breed" name="Breed" value={addNewPet.Breed} onChange={handleAddPetChange} />
                                     </div>
-                                    <button type="submit" className="btn btn-primary btn-block">Add Pet</button>
+                                    <div className="form-group">
+                                        <label htmlFor="cvv">Gender</label>
+                                        <input type="text" className="form-control" placeholder="Gender" name="Gender" value={addNewPet.Gender} onChange={handleAddPetChange} />
+                                    </div>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={handleOnSubmitNewPet}>Add Pet</button>
                                 </form>
                             </div>
                         </div>
@@ -110,6 +201,25 @@ export function Pets() {
             </div>
         );
     };
+
+
+
+
+
+
+    function handleViewChange(view) {
+        if (view === 0) {
+            getAllPets()
+            setView(0)
+        } else if (view === 1) {
+            setView(1)
+        } else if (view === 2) {
+            setView(2)
+        }
+        else if (view === 3) {
+            setView(3)
+        }
+    }
 
 
     function SettingView(currentView) {
@@ -145,10 +255,10 @@ export function Pets() {
 
                             </ul>
                             <form class="d-flex" role="search">
-                                <button onClick={() => setView(0)}>Pets</button>
-                                <button onClick={() => setView(1)}>Cart</button>
-                                <button onClick={() => setView(2)}>Checkout</button>
-                                <button onClick={() => setView(3)}>Add</button>
+                                <button onClick={() => handleViewChange(1)}>Cart</button>
+                                <button onClick={() => handleViewChange(0)}>Pets</button>
+                                <button onClick={() => handleViewChange(2)}>Checkout</button>
+                                <button onClick={() => handleViewChange(3)}>Add</button>
                                 <Link to="/"><button class="btn btn-lg btn-primary" type="submit">Sign Out</button></Link>
                             </form>
                         </div>
