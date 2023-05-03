@@ -43,17 +43,17 @@ app.post("/Pets/insert", async (req, res) => {
   formData._id = req.body._id;
   formData.Description = req.body.Description;
   formData.Birthday = req.body.Birthday;
-  formData.image = req.body.image;
-  formData.species = req.body.species;
+  formData.Image = req.body.Image;
+  formData.Species = req.body.Species;
   formData.Avalible = req.body.Avalible;
-  formData.gender = req.body.gender;
-  formData.breed = req.body.breed;
+  formData.Gender = req.body.Gender;
+  formData.Breed = req.body.Breed;
   formData.Name = req.body.Name;
 
   try {
     // await formData.save();
     await Pets.create(formData);
-    const messageResponse = { message: `Pets ${p_id} added correctly` };
+    const messageResponse = { message: `Pets ${_id} added correctly` };
     res.send(JSON.stringify(messageResponse));
   } catch (err) {
     console.log("Error while adding a new Pets:" + err);
