@@ -7,19 +7,22 @@ export function SignIn() {
   const [Login, setLogin] = useState(false);
 
   function SingIn() {
-    fetch("http://localhost:4000/Users/" + Email)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("get user with email:", Email);
-        console.log(data);
-        const User = data;
-        if (User.Password === Password) {
-          setLogin(true);
-        } else {
-          setLogin(false);
-          alert("value");
-        }
-      });
+    if (Password !== "" && Email !== "") {
+      fetch("http://localhost:4000/UsersEmail/" + Email)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("get user with email:", Email);
+          console.log(data);
+          const User = data;
+          if (User.Password === Password) {
+            setLogin(true);
+            alert("True password");
+          } else {
+            setLogin(false);
+            alert("false password");
+          }
+        });
+    }
   }
 
   return (
@@ -61,15 +64,15 @@ export function SignIn() {
                 }}
               />
             </div>
-            <Link to="/Pets">
-              <button
-                class="btn btn-lg btn-primary"
-                type="submit"
-                onClick={SingIn}
-              >
-                Sign In
-              </button>
-            </Link>
+
+            <button
+              class="btn btn-lg btn-primary"
+              type="submit"
+              onClick={SingIn}
+            >
+              Sign In
+            </button>
+
             <Link to="/">
               <button class="btn btn-lg btn-primary" type="submit">
                 Home

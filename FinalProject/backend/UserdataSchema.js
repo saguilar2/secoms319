@@ -20,13 +20,15 @@ const UserdataSchema = new mongoose.Schema({
 
 const UserData = mongoose.model("UserData", UserdataSchema);
 
-UserData.find({})
-  .populate("PetData")
-  .exec((err, result) => {
-    if (err) {
-      return res.json({ error: err });
-    }
-    res.json({ result: result });
-  });
+// UserData.find({})
+//   .populate("PetData")
+//   .then((err, result) => {
+//     if (err) {
+//       return res.json({ error: err });
+//     }
+//     res.json({ result: result });
+//   }).catch((err) => {
+//     //catch error
+//   });
 
 module.exports = UserData;

@@ -110,7 +110,7 @@ app.get("/Users/:id", async (req, resp) => {
   resp.send(oneUsers);
 });
 
-app.get("/Users/:email", async (req, resp) => {
+app.get("/UsersEmail/:email", async (req, resp) => {
   const email = req.params.email;
   const query = { Email: email };
   const oneUsers = await Users.findOne(query);
