@@ -36,7 +36,6 @@ export function Home() {
                 <div class="carousel-caption text-start">
                     <h1>Pet Adoption</h1>
                     <p>Welcome to our pet adoption website</p>
-                    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
                 </div>
                 </div>
             </div>

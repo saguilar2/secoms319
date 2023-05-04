@@ -84,7 +84,7 @@ export function Pets() {
 
 
     //After confirmed checkout delete pet from database
-    function deleteOneProduct(deleteid) {
+    function deleteOnePet(deleteid) {
         console.log("Product to delete :", deleteid);
         fetch("http://localhost:4000/Pets/delete", {
           method: "DELETE",
@@ -103,11 +103,57 @@ export function Pets() {
           });
     }
 
-
     function handleCheckout(){
-        deleteOneProduct(chosenPet._id)
+        deleteOnePet(chosenPet._id)
         handleViewChange(0)
     }
+
+
+
+    //PUT method
+    function handleEdit(pets) {
+        setChosenPet(pets)
+        handleViewChange(4)
+    }
+
+    const [petToEdit, setPetToEdit] = useState({
+        _id: 0,
+        Description: "",
+    });
+
+    function handleEditPetChange(evt){
+        const value = evt.target.value;
+        if (evt.target.name === "Description") {
+            setPetToEdit({ ...petToEdit, Description: value });
+        }
+    }
+
+    function editPet(e) {
+        e.preventDefault();
+        console.log(e.target.value);
+        var edit = {};
+        edit._id = chosenPet._id
+        if (petToEdit.Description !== "") {
+          edit.Description = petToEdit.Description;
+        }
+        fetch("http://localhost:4000/Pets/edit/" + edit._id, {
+          method: "Put",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(edit),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Post a new product completed");
+            console.log(data);
+            if (data) {
+              //const keys = Object.keys(data);
+              const value = Object.values(data);
+              alert(value);
+            }
+          });
+
+          handleViewChange(0)
+      }
 
 
 
@@ -123,7 +169,7 @@ export function Pets() {
                     {pets.map((pets) => (
                         <div class="col-md-4">
                             <div class="card">
-                                <img src={pets.Image} class="card-img-top" alt="Pet" />
+                                <img src="C:\COMS319\Sally.webp" class="card-img-top" alt="Pet" />
                                 <div class="card-body">
                                     <h5 class="card-title">Name: {pets.Name}</h5>
                                     <p class="card-text">Description: {pets.Description}</p>
@@ -134,6 +180,7 @@ export function Pets() {
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pets)}>Adopt</button>
+                                            <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleEdit(pets)}>Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -264,6 +311,34 @@ export function Pets() {
         );
     };
 
+    const editPetView = () => {
+        return (
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4>Edit Pet Description</h4>
+                            </div>
+                            <div className="card-body">
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Name: {chosenPet.Name}</label>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Description</label>
+                                        <input type="text" className="form-control" placeholder="Edit Description" name="Description" value={petToEdit.Description} onChange={handleEditPetChange} />
+                                    </div>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={editPet}>Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
 
 
 
@@ -281,6 +356,9 @@ export function Pets() {
         else if (view === 3) {
             setView(3)
         }
+        else if (view === 4) {
+            setView(4)
+        }
     }
 
     function SettingView(currentView) {
@@ -293,6 +371,9 @@ export function Pets() {
         }
         else if (currentView === 3) {
             return addPetView()
+        }
+        else if (currentView === 4) {
+            return editPetView()
         }
     }
 

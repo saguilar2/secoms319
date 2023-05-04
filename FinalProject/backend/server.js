@@ -8,6 +8,10 @@ const Users = require("./UserdataSchema.js");
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+app.use('/images', express.static('public'));
+
+
 mongoose.connect("mongodb://127.0.0.1:27017/Pets", {
   dbName: "Pets",
   useNewUrlParser: true,
@@ -74,7 +78,7 @@ app.delete("/Pets/delete", async (req, res) => {
   }
 });
 
-app.put("/Pets/edite/:id", async (req, res) => {
+app.put("/Pets/edit/:id", async (req, res) => {
   console.log(req.body);
   const id = req.params.id;
   const query = { _id: id };
