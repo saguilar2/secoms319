@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-
+import { useBetween } from "use-between";
+import { useShareableState } from "./Global";
 
 export function Pets() {
-
+    const { setLogin, setUser } = useBetween(useShareableState);
     const [currentView, setView] = useState();
     const [pets, setPets] = useState([]);
     const [chosenPet, setChosenPet] = useState([])
 
+    window.onload = () => {
 
-
+    }
 
     //Showing all pets
     function getAllPets() {
@@ -27,9 +29,7 @@ export function Pets() {
     //Adding a pet
     function handleAddPetChange(evt) {
         const value = evt.target.value;
-        if (evt.target.name === "_id") {
-            setAddNewPet({ ...addNewPet, _id: value });
-        } else if (evt.target.name === "Name") {
+        if (evt.target.name === "Name") {
             setAddNewPet({ ...addNewPet, Name: value });
         } else if (evt.target.name === "Description") {
             setAddNewPet({ ...addNewPet, Description: value });
@@ -59,7 +59,7 @@ export function Pets() {
                 console.log("Post a new product completed");
                 console.log(data);
                 if (data) {
-                    //const keys = Object.keys(data);
+
                     const value = Object.values(data);
                     alert(value);
                 }
@@ -69,7 +69,7 @@ export function Pets() {
     }
 
     const [addNewPet, setAddNewPet] = useState({
-        _id: Math.floor(Math.random() * 1000),
+
         Name: "",
         Description: "",
         Image: "",
@@ -169,23 +169,23 @@ export function Pets() {
     //Views
     const petsView = () => {
         return (
-            <div class="container">
-                <div class="row">
+            <div className="container">
+                <div className="row">
                     {pets.map((pets) => (
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src={pets.Image} class="card-img-top" alt="Pet" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Name: {pets.Name}</h5>
-                                    <p class="card-text">Description: {pets.Description}</p>
-                                    <p class="card-text">Birthday: {pets.Birthday}</p>
-                                    <p class="card-text">Species: {pets.Species}</p>
-                                    <p class="card-text">Breed: {pets.Breed}</p>
-                                    <p class="card-text">Gender: {pets.Gender}</p>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pets)}>Adopt</button>
-                                            <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleEdit(pets)}>Edit</button>
+                        <div className="col-md-4">
+                            <div className="card">
+                                <img src={pets.Image} className="card-img-top" alt="Pet" />
+                                <div className="card-body">
+                                    <h5 className="card-title">Name: {pets.Name}</h5>
+                                    <p className="card-text">Description: {pets.Description}</p>
+                                    <p className="card-text">Birthday: {pets.Birthday}</p>
+                                    <p className="card-text">Species: {pets.Species}</p>
+                                    <p className="card-text">Breed: {pets.Breed}</p>
+                                    <p className="card-text">Gender: {pets.Gender}</p>
+                                    <div className="input-group mb-3">
+                                        <div className="input-group-prepend">
+                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pets)}>Adopt</button>
+                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleEdit(pets)}>Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -200,20 +200,20 @@ export function Pets() {
 
     const cartView = () => {
         return (
-            <div class="container d-flex justify-content-center align-items-center">
-                <div class="card">
-                    <img src={chosenPet.Image} class="card-img-top img-fluid" alt="Pet" />
-                    <div class="card-body">
-                        <h5 class="card-title display-3">{chosenPet.Name}</h5>
-                        <p class="card-text">Description: {chosenPet.Description}</p>
-                        <p class="card-text">Birthday: {chosenPet.Birthday}</p>
-                        <p class="card-text">Species: {chosenPet.Species}</p>
-                        <p class="card-text">Breed: {chosenPet.Breed}</p>
-                        <p class="card-text">Gender: {chosenPet.Gender}</p>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(2)}>Proceed to Checkout</button>
-                                <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(0)}>Back</button>
+            <div className="container d-flex justify-content-center align-items-center">
+                <div className="card">
+                    <img src={chosenPet.Image} className="card-img-top img-fluid" alt="Pet" />
+                    <div className="card-body">
+                        <h5 className="card-title display-3">{chosenPet.Name}</h5>
+                        <p className="card-text">Description: {chosenPet.Description}</p>
+                        <p className="card-text">Birthday: {chosenPet.Birthday}</p>
+                        <p className="card-text">Species: {chosenPet.Species}</p>
+                        <p className="card-text">Breed: {chosenPet.Breed}</p>
+                        <p className="card-text">Gender: {chosenPet.Gender}</p>
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(2)}>Proceed to Checkout</button>
+                                <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(0)}>Back</button>
                             </div>
                         </div>
                     </div>
@@ -389,26 +389,30 @@ export function Pets() {
     //main screen
     return (
 
-        <body>
+        <div>
             <header>
-                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Pet Adoption</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href="#">Pet Adoption</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarCollapse">
-                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <div className="collapse navbar-collapse" id="navbarCollapse">
+                            <ul className="navbar-nav me-auto mb-2 mb-md-0">
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Click Here First</a>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Click Here First</a>
                                 </li>
 
                             </ul>
-                            <form class="d-flex" role="search" href="#">
+                            <form className="d-flex" role="search">
+                            <Link to="/"><button>Home</button></Link>
                                 <button onClick={() => handleViewChange(0)}>Pets</button>
                                 <button onClick={() => handleViewChange(3)}>Add</button>
-                                <Link to="/"><button class="btn btn-lg btn-primary" type="submit">Sign Out</button></Link>
+                                <Link to="/"><button className="btn btn-lg btn-primary" type="submit" onClick={() => {
+                                    setLogin(false)
+                                    setUser();
+                                }}>Sign Out</button></Link>
                             </form>
                         </div>
                     </div>
@@ -422,7 +426,7 @@ export function Pets() {
 
 
 
-        </body>
+        </div>
 
 
 

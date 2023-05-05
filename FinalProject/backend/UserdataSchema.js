@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
 const UserdataSchema = new mongoose.Schema({
-  _id: { type: Number },
+ 
   F_Name: { type: String, required: true },
   L_Name: { type: String, required: true },
   Email: { type: String, required: true },
@@ -12,7 +12,7 @@ const UserdataSchema = new mongoose.Schema({
   Birthday: { type: Date, required: true },
   Pets: [
     {
-      type: ObjectId,
+      type: Number,
       ref: "PetData",
     },
   ],

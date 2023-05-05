@@ -44,8 +44,6 @@ app.get("/Pets/:id", async (req, resp) => {
 app.post("/Pets/insert", async (req, res) => {
   console.log(req.body);
   const formData = new Pets();
-
-  formData._id = req.body._id;
   formData.Description = req.body.Description;
   formData.Birthday = req.body.Birthday;
   formData.Image = req.body.Image;
@@ -126,8 +124,7 @@ app.get("/UsersEmail/:email", async (req, resp) => {
 app.post("/Users/insert", async (req, res) => {
   console.log(req.body);
   const formData = new Users();
-
-  formData._id = req.body._id;
+  formData._id;
   formData.F_Name = req.body.F_Name;
   formData.L_Name = req.body.L_Name;
   formData.Email = req.body.Email;
@@ -135,12 +132,12 @@ app.post("/Users/insert", async (req, res) => {
   formData.Phone_Number = req.body.Phone_Number;
   formData.Adrress = req.body.Adrress;
   formData.Birthday = req.body.Birthday;
-  formData.Pets.push(req.body.Pets);
+  formData.Pets = [...req.body.Pets];
 
   try {
     // await formData.save();
     await Users.create(formData);
-    const messageResponse = { message: `Users ${p_id} added correctly` };
+    const messageResponse = { message: `User ${formData._id} added correctly` };
     res.send(JSON.stringify(messageResponse));
   } catch (err) {
     console.log("Error while adding a new Users:" + err);

@@ -6,12 +6,11 @@ export function SignUp() {
   const navigate = useNavigate();
   const { setLogin, setUser } = useBetween(useShareableState);
   const [TempUser, setTempUser] = useState({
-    _id: 0,
     F_Name: "",
     L_Name: "",
     Email: "",
     Password: "",
-    Phone_Number: Date(),
+    Phone_Number: "",
     Adrress: "",
     Birthday: "",
     Pets: [],
