@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 
 export function Pets() {
 
-    const [currentView, setView] = useState(0);
+    const [currentView, setView] = useState();
     const [pets, setPets] = useState([]);
     const [chosenPet, setChosenPet] = useState([])
+
+
 
 
     //Showing all pets
@@ -61,11 +64,12 @@ export function Pets() {
                     alert(value);
                 }
             });
+        getAllPets()
         handleViewChange(0)
     }
 
     const [addNewPet, setAddNewPet] = useState({
-        _id: 4,
+        _id: Math.floor(Math.random() * 1000),
         Name: "",
         Description: "",
         Image: "",
@@ -87,24 +91,25 @@ export function Pets() {
     function deleteOnePet(deleteid) {
         console.log("Product to delete :", deleteid);
         fetch("http://localhost:4000/Pets/delete", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ _id: deleteid }),
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ _id: deleteid }),
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Delete a product completed : ", deleteid);
-            console.log(data);
-            if (data) {
-              //const keys = Object.keys(data);
-              const value = Object.values(data);
-              alert(value);
-            }
-          });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Delete a product completed : ", deleteid);
+                console.log(data);
+                if (data) {
+                    //const keys = Object.keys(data);
+                    const value = Object.values(data);
+                    alert(value);
+                }
+            });
     }
 
-    function handleCheckout(){
+    function handleCheckout() {
         deleteOnePet(chosenPet._id)
+        getAllPets()
         handleViewChange(0)
     }
 
@@ -121,7 +126,7 @@ export function Pets() {
         Description: "",
     });
 
-    function handleEditPetChange(evt){
+    function handleEditPetChange(evt) {
         const value = evt.target.value;
         if (evt.target.name === "Description") {
             setPetToEdit({ ...petToEdit, Description: value });
@@ -134,26 +139,26 @@ export function Pets() {
         var edit = {};
         edit._id = chosenPet._id
         if (petToEdit.Description !== "") {
-          edit.Description = petToEdit.Description;
+            edit.Description = petToEdit.Description;
         }
         fetch("http://localhost:4000/Pets/edit/" + edit._id, {
-          method: "Put",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(edit),
+            method: "Put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(edit),
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Post a new product completed");
-            console.log(data);
-            if (data) {
-              //const keys = Object.keys(data);
-              const value = Object.values(data);
-              alert(value);
-            }
-          });
-
-          handleViewChange(0)
-      }
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Post a new product completed");
+                console.log(data);
+                if (data) {
+                    //const keys = Object.keys(data);
+                    const value = Object.values(data);
+                    alert(value);
+                }
+            });
+        getAllPets()
+        handleViewChange(0)
+    }
 
 
 
@@ -169,7 +174,7 @@ export function Pets() {
                     {pets.map((pets) => (
                         <div class="col-md-4">
                             <div class="card">
-                                <img src="C:\COMS319\Sally.webp" class="card-img-top" alt="Pet" />
+                                <img src={pets.Image} class="card-img-top" alt="Pet" />
                                 <div class="card-body">
                                     <h5 class="card-title">Name: {pets.Name}</h5>
                                     <p class="card-text">Description: {pets.Description}</p>
@@ -208,6 +213,7 @@ export function Pets() {
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(2)}>Proceed to Checkout</button>
+                                <button class="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleViewChange(0)}>Back</button>
                             </div>
                         </div>
                     </div>
@@ -253,6 +259,7 @@ export function Pets() {
                                         <input type="text" className="form-control" id="cvv" placeholder="Enter CVV" />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block" onClick={() => handleCheckout()}>Confirm Adoption</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={() => handleViewChange(0)}>Cancel Order</button>
                                 </form>
                             </div>
                         </div>
@@ -302,6 +309,7 @@ export function Pets() {
                                         <input type="text" className="form-control" placeholder="Gender" name="Gender" value={addNewPet.Gender} onChange={handleAddPetChange} />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block" onClick={handleOnSubmitNewPet}>Add Pet</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={handleOnSubmitNewPet}>Cancel</button>
                                 </form>
                             </div>
                         </div>
@@ -330,6 +338,7 @@ export function Pets() {
                                         <input type="text" className="form-control" placeholder="Edit Description" name="Description" value={petToEdit.Description} onChange={handleEditPetChange} />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block" onClick={editPet}>Confirm</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={() => handleViewChange(0)}>Cancel</button>
                                 </form>
                             </div>
                         </div>
@@ -392,11 +401,11 @@ export function Pets() {
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
+                                    <a class="nav-link" href="#">Click Here First</a>
                                 </li>
 
                             </ul>
-                            <form class="d-flex" role="search">
+                            <form class="d-flex" role="search" href="#">
                                 <button onClick={() => handleViewChange(0)}>Pets</button>
                                 <button onClick={() => handleViewChange(3)}>Add</button>
                                 <Link to="/"><button class="btn btn-lg btn-primary" type="submit">Sign Out</button></Link>

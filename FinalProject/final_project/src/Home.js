@@ -34,8 +34,9 @@ export function Home() {
                 <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
                 <div class="container">
                 <div class="carousel-caption text-start">
-                    <h1>Pet Adoption</h1>
-                    <p>Welcome to our pet adoption website</p>
+                    <h1>Welcome to our Pet Adoption Website</h1>
+                    <p>View our recently adopted pets below!</p>
+                    <button class="btn btn-lg btn-primary" type="submit">Sign Up!</button>
                 </div>
                 </div>
             </div>
@@ -49,22 +50,19 @@ export function Home() {
             
             <div class="row">
               <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2 class="fw-normal">Animal 1</h2>
-                <p>Animal Details</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <img src="/images/parrot.png" width="70%"></img>
+                <h2 class="fw-normal">Jimmy</h2>
+                <p>Repeats what you say!</p>
               </div>
               <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2 class="fw-normal">Animal 2</h2>
-                <p>Animal Details</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <img src="/images/puppies.jpg" width="70%"></img>
+                <h2 class="fw-normal">Bobby, Robby, Tobby</h2>
+                <p>3 Brothers!</p>
               </div>
               <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2 class="fw-normal">Animal 3</h2>
-                <p>Animal Details</p>
-                <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <img src="/images/nemo.jpg" width="70%"></img>
+                <h2 class="fw-normal">Nemo</h2>
+                <p>We have fish too!</p>
               </div>
             </div>
         
@@ -86,7 +84,7 @@ export function Home() {
             <p>Student 2: Simon Aguilar</p>
             <p>Email: saguilar@iastate.edu</p>
             <p>Professor: Dr. Abraham N. Aldaco Gastelum</p>
-            <p>Email:</p>
+            <p>Email: aaldaco@iastate.edu</p>
           </footer>
         </main>
         
