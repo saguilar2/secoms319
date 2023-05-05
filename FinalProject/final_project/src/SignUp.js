@@ -1,7 +1,9 @@
 import { useBetween } from "use-between";
 import { useShareableState } from "./Global";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export function SignUp() {
+  const navigate = useNavigate();
   const { setLogin, setUser } = useBetween(useShareableState);
   const [TempUser, setTempUser] = useState({
     _id: 0,
@@ -9,12 +11,47 @@ export function SignUp() {
     L_Name: "",
     Email: "",
     Password: "",
-    Phone_Number: "",
+    Phone_Number: Date(),
     Adrress: "",
     Birthday: "",
     Pets: [],
   });
+
   console.log(TempUser);
+
+  function FindAge(birthday) {
+    birthday = new Date(birthday);
+    return Number((new Date().getTime() - birthday.getTime()) / 31536000000).toFixed(0);
+  }
+
+  function validateUser(e) {
+    let age = FindAge(TempUser.Birthday);
+
+    if (age >= 18) {
+      e.preventDefault();
+      console.log(e.target.value);
+      fetch("http://localhost:4000/Users/insert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(TempUser),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Post a new user completed");
+          console.log(data);
+          if (data) {
+
+            const value = Object.values(data);
+            setLogin(true);
+            setUser(value);
+            navigate("/Pets");
+          }
+        });
+    } else {
+      alert("Must be atless 18 years old");
+    }
+
+  }
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -125,7 +162,7 @@ export function SignUp() {
                     }}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">
+                <button type="submit" className="btn btn-primary btn-block" onClick={validateUser}>
                   Regester
                 </button>
               </form>
