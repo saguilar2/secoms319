@@ -2,21 +2,26 @@ import { Link } from "react-router-dom";
 import { useBetween } from "use-between";
 import { useShareableState } from "./Global";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 export function Home() {
   const navigate = useNavigate();
   const { Login, User } = useBetween(useShareableState);
+
   let SignInText;
+  let showButtonSignup = true;
 
   if (Login) {
 
     SignInText = `${User.F_Name}  ${User.L_Name}`;
+    showButtonSignup = false;
   } else {
     SignInText = "Sign in";
+    
   }
 
   function TransferSignIn() {
     if (Login === true) {
-      navigate("/Profile");
+      navigate("/Pets");
     } else {
       navigate("/SignIn");
     }
@@ -58,7 +63,7 @@ export function Home() {
                 <div className="carousel-caption text-start">
                   <h1>Welcome to our Pet Adoption Website</h1>
                   <p>View our recently adopted pets below!</p>
-                  <button className="btn btn-lg btn-primary" type="submit" onClick={() => { navigate("/SignUp") }}>Sign Up!</button>
+                  {showButtonSignup && <button className="btn btn-lg btn-primary" type="submit" onClick={() => { navigate("/SignUp") }}>Sign Up!</button>}
                 </div>
               </div>
             </div>
