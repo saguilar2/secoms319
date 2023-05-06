@@ -166,7 +166,8 @@ export function Pets() {
 
     //Views
     const petsView = () => {
-        if (pets.length === 0 && hasnotbeencalled) {
+
+        if (hasnotbeencalled) {
             getAllPets()
             sethasnotbeencalled(false);
         }
