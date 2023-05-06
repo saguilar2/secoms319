@@ -44,6 +44,7 @@ app.get("/Pets/:id", async (req, resp) => {
 app.post("/Pets/insert", async (req, res) => {
   console.log(req.body);
   const formData = new Pets();
+  formData._id = req.body._id
   formData.Description = req.body.Description;
   formData.Birthday = req.body.Birthday;
   formData.Image = req.body.Image;

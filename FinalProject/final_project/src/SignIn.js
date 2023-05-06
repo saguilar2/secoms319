@@ -42,7 +42,7 @@ export function SignIn() {
           <form className="col-lg-6 col-md-8 col-sm-10 col-12 mt-5 mx-auto">
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
-                Username
+                Email
               </label>
               <input
                 type="email"
@@ -80,17 +80,6 @@ export function SignIn() {
             >
               Sign In
             </button>
-
-            <Link to="/">
-              <button className="btn btn-lg btn-primary" type="submit">
-                Home
-              </button>
-            </Link>
-            <Link to="/Pets">
-              <button className="btn btn-lg btn-primary" type="submit">
-                Pets
-              </button>
-            </Link>
           </form>
         </div>
       </div>

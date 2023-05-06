@@ -67,7 +67,7 @@ export function Pets() {
     }
 
     const [addNewPet, setAddNewPet] = useState({
-
+        _id: Math.floor(Math.random() * 1000),
         Name: "",
         Description: "",
         Image: "",

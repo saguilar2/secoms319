@@ -133,11 +133,11 @@ export function SignUp() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="Adrress">Adrress</label>
+                  <label htmlFor="Adrress">Address</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Adrress"
+                    placeholder="Address"
                     name="Adrress"
                     value={TempUser.Adrress}
                     onChange={(event) => {
@@ -162,7 +162,7 @@ export function SignUp() {
                   />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block" onClick={validateUser}>
-                  Regester
+                  Register
                 </button>
               </form>
             </div>
