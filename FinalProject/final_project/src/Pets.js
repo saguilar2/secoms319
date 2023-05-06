@@ -5,13 +5,11 @@ import { useShareableState } from "./Global";
 
 export function Pets() {
     const { setLogin, setUser } = useBetween(useShareableState);
-    const [currentView, setView] = useState();
+    const [currentView, setView] = useState(0);
+    const [hasnotbeencalled, sethasnotbeencalled] = useState(true);
     const [pets, setPets] = useState([]);
     const [chosenPet, setChosenPet] = useState([])
-
-    window.onload = () => {
-
-    }
+    console.log(currentView);
 
     //Showing all pets
     function getAllPets() {
@@ -64,7 +62,7 @@ export function Pets() {
                     alert(value);
                 }
             });
-        getAllPets()
+
         handleViewChange(0)
     }
 
@@ -109,7 +107,7 @@ export function Pets() {
 
     function handleCheckout() {
         deleteOnePet(chosenPet._id)
-        getAllPets()
+
         handleViewChange(0)
     }
 
@@ -156,7 +154,7 @@ export function Pets() {
                     alert(value);
                 }
             });
-        getAllPets()
+
         handleViewChange(0)
     }
 
@@ -168,24 +166,29 @@ export function Pets() {
 
     //Views
     const petsView = () => {
+        if (pets.length === 0 && hasnotbeencalled) {
+            getAllPets()
+            sethasnotbeencalled(false);
+        }
+
         return (
             <div className="container">
                 <div className="row">
-                    {pets.map((pets) => (
-                        <div className="col-md-4">
+                    {pets.map((pet) => (
+                        <div key={pet.id} className="col-md-4">
                             <div className="card">
-                                <img src={pets.Image} className="card-img-top" alt="Pet" />
+                                <img src={pet.Image} className="card-img-top" alt="Pet" />
                                 <div className="card-body">
-                                    <h5 className="card-title">Name: {pets.Name}</h5>
-                                    <p className="card-text">Description: {pets.Description}</p>
-                                    <p className="card-text">Birthday: {pets.Birthday}</p>
-                                    <p className="card-text">Species: {pets.Species}</p>
-                                    <p className="card-text">Breed: {pets.Breed}</p>
-                                    <p className="card-text">Gender: {pets.Gender}</p>
+                                    <h5 className="card-title">Name: {pet.Name}</h5>
+                                    <p className="card-text">Description: {pet.Description}</p>
+                                    <p className="card-text">Birthday: {pet.Birthday}</p>
+                                    <p className="card-text">Species: {pet.Species}</p>
+                                    <p className="card-text">Breed: {pet.Breed}</p>
+                                    <p className="card-text">Gender: {pet.Gender}</p>
                                     <div className="input-group mb-3">
                                         <div className="input-group-prepend">
-                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pets)}>Adopt</button>
-                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleEdit(pets)}>Edit</button>
+                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleAdopt(pet)}>Adopt</button>
+                                            <button className="btn btn-outline-primary adopt-btn" type="button" onClick={() => handleEdit(pet)}>Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -309,7 +312,7 @@ export function Pets() {
                                         <input type="text" className="form-control" placeholder="Gender" name="Gender" value={addNewPet.Gender} onChange={handleAddPetChange} />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-block" onClick={handleOnSubmitNewPet}>Add Pet</button>
-                                    <button type="submit" className="btn btn-primary btn-block" onClick={handleOnSubmitNewPet}>Cancel</button>
+                                    <button type="submit" className="btn btn-primary btn-block" onClick={() => handleViewChange(0)}>Cancel</button>
                                 </form>
                             </div>
                         </div>
@@ -354,8 +357,11 @@ export function Pets() {
 
     //Handling view changes
     function handleViewChange(view) {
-        if (view === 0) {
-            getAllPets()
+        if (view !== 0) {
+            sethasnotbeencalled(true);
+        }
+        if (view === 0) {// displays pets
+
             setView(0)
         } else if (view === 1) {
             setView(1)
@@ -400,14 +406,11 @@ export function Pets() {
                         <div className="collapse navbar-collapse" id="navbarCollapse">
                             <ul className="navbar-nav me-auto mb-2 mb-md-0">
 
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Click Here First</a>
-                                </li>
+
 
                             </ul>
                             <form className="d-flex" role="search">
-                            <Link to="/"><button>Home</button></Link>
-                                <button onClick={() => handleViewChange(0)}>Pets</button>
+                                <Link to="/"><button>Home</button></Link>
                                 <button onClick={() => handleViewChange(3)}>Add</button>
                                 <Link to="/"><button className="btn btn-lg btn-primary" type="submit" onClick={() => {
                                     setLogin(false)
