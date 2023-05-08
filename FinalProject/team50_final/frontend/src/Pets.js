@@ -234,7 +234,7 @@ export function Pets() {
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Checkout $5</h4>
+                                <h4>Checkout</h4>
                             </div>
                             <div className="card-body">
                                 <form>

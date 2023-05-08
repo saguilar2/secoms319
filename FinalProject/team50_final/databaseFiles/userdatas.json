@@ -1,0 +1,59 @@
+[{
+  "_id": {
+    "$oid": "64527eebc6ebb81c947ac6a8"
+  },
+  "F_Name": "Bob",
+  "L_Name": "Fun guy",
+  "Email": "t",
+  "Password": "t",
+  "Phone_Number": "Dog",
+  "Address": "Golder Retriever",
+  "Birthday": "M"
+},{
+  "_id": {
+    "$oid": "64556887fd8a64e5a2047652"
+  },
+  "Pets": [],
+  "F_Name": "Kolby",
+  "L_Name": "Kucera",
+  "Email": "kolbykucera23@gmail.com",
+  "Password": "pass",
+  "Phone_Number": "3193219303",
+  "Adrress": "test",
+  "Birthday": {
+    "$date": {
+      "$numberLong": "-27080352000000"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645687ab829fd9b29b132e30"
+  },
+  "Pets": [],
+  "F_Name": "test",
+  "L_Name": "test",
+  "Email": "test",
+  "Password": "test",
+  "Phone_Number": "test",
+  "Adrress": "test",
+  "Birthday": {
+    "$date": "1998-11-19T00:00:00.000Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64568ca7585609bda086acf7"
+  },
+  "Pets": [],
+  "F_Name": "test2",
+  "L_Name": "test2",
+  "Email": "test2",
+  "Password": "test2",
+  "Phone_Number": "3193219303",
+  "Adrress": "54 Sutherland Place",
+  "Birthday": {
+    "$date": "1996-10-08T00:00:00.000Z"
+  },
+  "__v": 0
+}]
