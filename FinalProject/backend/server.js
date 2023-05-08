@@ -13,13 +13,13 @@ app.use(express.static("public"));
 app.use("/images", express.static("images"));
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/Pets", {
+mongoose.connect("mongodb://127.0.0.1/Pets", {
   dbName: "Pets",
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 const port = process.env.PORT || 4000;
-const host = "localhost";
+const host = "10.90.72.125";
 app.listen(port, () => {
   console.log(`App listening at http://%s:%s`, host, port);
 });

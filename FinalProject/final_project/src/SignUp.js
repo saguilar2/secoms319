@@ -29,7 +29,7 @@ export function SignUp() {
     if (age >= 18) {
       e.preventDefault();
       console.log(e.target.value);
-      fetch("http://localhost:4000/Users/insert", {
+      fetch("http://10.90.72.125:4000/Users/insert", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(TempUser),
