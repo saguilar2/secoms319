@@ -13,7 +13,7 @@ export function Pets() {
 
     //Showing all pets
     function getAllPets() {
-        fetch("http://10.90.72.125:4000/Pets")
+        fetch("http://localhost:4000/Pets")
             .then((response) => response.json())
             .then((data) => {
                 console.log("Show Pets :");
@@ -47,7 +47,7 @@ export function Pets() {
     function handleOnSubmitNewPet(e) {
         e.preventDefault();
         console.log(e.target.value);
-        fetch("http://10.90.72.125:4000/Pets/Insert", {
+        fetch("http://localhost:4000/Pets/Insert", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(addNewPet),
@@ -88,7 +88,7 @@ export function Pets() {
     //After confirmed checkout delete pet from database
     function deleteOnePet(deleteid) {
         console.log("Product to delete :", deleteid);
-        fetch("http://10.90.72.125:4000/Pets/delete", {
+        fetch("http://localhost:4000/Pets/delete", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ _id: deleteid }),
@@ -139,7 +139,7 @@ export function Pets() {
         if (petToEdit.Description !== "") {
             edit.Description = petToEdit.Description;
         }
-        fetch("http://10.90.72.125:4000/Pets/edit/" + edit._id, {
+        fetch("http://localhost:4000/Pets/edit/" + edit._id, {
             method: "Put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(edit),
@@ -234,7 +234,7 @@ export function Pets() {
                     <div className="col-md-6">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Checkout $5</h4>
+                                <h4>Checkout</h4>
                             </div>
                             <div className="card-body">
                                 <form>
@@ -412,7 +412,7 @@ export function Pets() {
                             </ul>
                             <form className="d-flex" role="search">
                                 <Link to="/"><button>Home</button></Link>
-                                <button type="button" onClick={() => handleViewChange(3)}>Add</button>
+                                <button onClick={() => handleViewChange(3)}>Add</button>
                                 <Link to="/"><button className="btn btn-lg btn-primary" type="submit" onClick={() => {
                                     setLogin(false)
                                     setUser();

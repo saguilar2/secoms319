@@ -62,7 +62,6 @@ export function Home() {
               <div className="container">
                 <div className="carousel-caption text-start">
                   <h1>Welcome to our Pet Adoption Website</h1>
-                  <p>Each pet is free, but we ask for a $5 donation to our cause.</p>
                   <p>View our recently adopted pets below!</p>
                   {showButtonSignup && <button className="btn btn-lg btn-primary" type="submit" onClick={() => { navigate("/SignUp") }}>Sign Up!</button>}
                 </div>
